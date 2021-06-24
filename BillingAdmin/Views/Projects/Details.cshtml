@@ -1,0 +1,121 @@
+﻿@model BillingAdmin.Models.ProjectsView.ProjectsDetailsViewModel
+@{
+    ViewBag.Title = "Проект - " + Model.Name;
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">@Model.Name</h3>
+            <input type="hidden" id="projectId" value="@Model.Id"/>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-grey-tta" href=" @Url.Action("Details", "Accounts", new { id = Model.AccountId })">Обратно в @Model.AccountName</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <ul class="nav nav-tabs custom-tabs">
+        <li class="active"><a data-toggle="tab" href="#commonDataPD">Общие данные</a></li>
+        <li><a data-toggle="tab" href="#statisticListPD">Список подключенной статистики к проекту &quot;@Model.Name&quot;</a></li>
+        <li><a data-toggle="tab" href="#servicesPD">Услуги по проекту &quot;@Model.Name&quot;</a></li>
+    </ul>
+    <div class="tab-content custom-tabs-content panel-body">
+        <div id="commonDataPD" class="tab-pane fade in active">
+            
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <a class="btn btn-orange-tta btn-margin-tta" href="@Url.Action("Edit", "Projects", new { id = Model.Id })">Редактировать</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="dataProject">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>@Html.DisplayNameFor(model => model.Name)</label>
+                        </div>
+                        <div class="col-md-9 text-left">
+                            @Html.DisplayFor(model => model.Name)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>@Html.DisplayNameFor(model => model.AccountName)</label>
+                        </div>
+                        <div class="col-md-9 text-left">
+                            @Html.DisplayFor(model => model.AccountName)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>@Html.DisplayNameFor(model => model.OktelCode)</label>
+                        </div>
+                        <div class="col-md-9 text-left">
+                            @Html.DisplayFor(model => model.OktelCode)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>@Html.DisplayNameFor(model => model.TypeProject)</label>
+                        </div>
+                        <div class="col-md-9 text-left">
+                            @Html.DisplayFor(model => model.TypeProject)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>@Html.DisplayNameFor(model => model.CreateDate)</label>
+                        </div>
+                        <div class="col-md-9 text-left">
+                            @Html.DisplayFor(model => model.CreateDate)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>@Html.DisplayNameFor(model => model.LastEditDate)</label>
+                        </div>
+                        <div class="col-md-9 text-left">
+                            @Html.DisplayFor(model => model.LastEditDate)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="statisticListPD" class="tab-pane fade">
+            @{ Html.RenderAction("StatisticOfProject", "Projects", new {Model.Id});}
+        </div>
+        <div id="servicesPD" class="tab-pane fade">
+            <input class="btn btn-orange-tta btn-margin-tta" type="button" id="btnCreateService" value="Добавить услугу" data-toggle="modal" data-target="#CreateService" />
+            @{Html.RenderAction("ServiceOfProject", "Projects", new { Model.Id }); }
+        </div>
+    </div>
+    @{Html.RenderAction("Service", "Projects", new { Model.Id }); }
+</div>
+@section Scripts{
+    <script src="~/Scripts/Projects/Details/SelectService.js"></script>
+    <script src="~/Scripts/Projects/Details/AddService.js"></script>
+    <script src="~/Scripts/Projects/Details/AjaxRequest.js"></script>
+    <script>
+       
+    </script>
+}

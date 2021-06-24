@@ -1,0 +1,345 @@
+﻿@using Microsoft.AspNet.Identity
+@using BillingAdmin.Models
+@using System.Linq;
+
+
+@model BillingAdmin.Models.menuMain
+@{
+    Dictionary<int, string> menuProjects = Model.menuProject;
+
+    Entities db = new Entities();
+
+    var userId = User.Identity.GetUserId();
+    var accountId = db.Accounts_Users.Where(c => c.userId.Equals(userId)).OrderBy(c => c.id).FirstOrDefault().accountId;
+
+    if (Session["CurrentAccount"] != null)
+    {
+        accountId = (int)Session["CurrentAccount"];
+    }
+
+    //db.Accounts.Where(c=>c.Id==accountId).FirstOrDefault().
+    var roles = db.Accounts_Roles.Where(c => c.Account == accountId).Select(c => c.Role).ToList();
+
+}
+
+<ul class="nav navbar-nav">
+
+    @if (User.IsInRole("Operator"))
+    {
+        <li class="dropdown dp">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Поставщики</a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href='@Url.Action("Providers2", "Accounts")'>Перечень поставщиков</a>
+                </li>
+                <li>
+                    <a href='@Url.Action("NewProvider","Accounts")'>Новый поставщик</a>
+                </li>
+                <li>
+                    <a href='/Accounts/LoadPrice/0'>Загрузка прайса</a>
+                </li>
+                @*<li>
+                        <a href='@Url.Action("Index", "Category")'>Каталог категорий</a>
+                    </li>*@
+                @*<a href='@Url.Action("Provider", "Users")'>Перечень пользователей</a>*@
+                <li><a><i class="fa fa-plus"></i></a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown dp">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Задачи</a>
+
+            <ul class="dropdown-menu">
+                <li> <a href='@Url.Action("Specifications", "C100tx_Orders")'>Спецификации</a></li>
+            </ul>
+
+        </li>
+    }
+    @if (roles.Contains(3))//заказчик
+    {
+        if (User.IsInRole("User"))
+        {
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Мои закупки</a>
+                <ul class="dropdown-menu">
+                    <li><a href='@Url.Action("Index", "C100tx_Orders")'>Загруженные мной</a></li>
+                    <li><a href='@Url.Action("Plans", "C100tx_Orders")'>Загруженные автоматически</a></li>
+                </ul>
+            </li>
+
+            @*<li class="dropdown dp">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Загрузка закупок</a>
+                    <ul class="dropdown-menu">
+                        <li> <a href='@Url.Action("CreateFromFile", "C100tx_Orders")'>Загрузить из файла</a></li>
+                        <li> <a href='@Url.Action("Create", "C100tx_Orders")'>Загрузить из плана закупок</a></li>
+                    </ul>
+                </li>*@
+
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Документооборот</a>
+
+                <ul class="dropdown-menu">
+                    <li> <a href='@Url.Action("DocumentContract", "C100tx_Orders")'>Договор</a></li>
+                </ul>
+            </li>
+        }
+    }
+
+    @if (roles.Contains(4))//поставщик
+    {
+        if (User.IsInRole("User") || User.IsInRole("Admin") || User.IsInRole("Manager"))
+        {
+            <li class="dropdown dp">
+                <a href='@Url.Action("CheckProducts", "C100tx_Orders")'>Мои предложения</a>
+
+            </li>
+
+            if (!roles.Contains(1))
+            {
+                <li class="dropdown dp">
+
+                    <a href='@Url.Action("LoadPrice", "C100tx_Orders")'>Загрузка прайса</a>
+                </li>
+
+                <li class="dropdown dp">
+
+                    <a href='@Url.Action("Catalog", "C100tx_Orders")'>Каталог</a>
+                </li>
+            }
+
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Документооборот</a>
+
+                <ul class="dropdown-menu">
+                    <li> <a href='@Url.Action("DocumentContract", "C100tx_Orders")'>Договор</a></li>
+                </ul>
+            </li>
+        }
+    }
+
+    @if (roles.Contains(1))//админ
+    {
+        if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+        {
+            @*<li class="dropdown dp">
+                    <a href='@Url.Action("Index", "C100tx_PlanPositions")'>Планы закупок</a>
+                </li>*@
+
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Заказчики</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href='@Url.Action("Clients", "Accounts")'>Перечень заказчиков</a>
+                    </li>
+                    @*<a href='@Url.Action("Client", "Users")'>Перечень пользователей</a>*@
+                    <li><a><i class="fa fa-plus"></i></a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Поставщики</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href='@Url.Action("Providers", "Accounts")'>Перечень поставщиков</a>
+                    </li>
+                    <li>
+                        <a href='@Url.Action("NewProvider","Accounts")'>Новый поставщик</a>
+                    </li>
+                    <li>
+                        <a href='@Url.Action("Index", "Category")'>Каталог категорий</a>
+                    </li>
+                    <li>
+                        <a href='/Accounts/Catalog/0'>Не проверенные товары</a>
+                    </li>
+                    <li>
+                        <a href='/Accounts/LoadPrice/0'>Загрузка прайса</a>
+                    </li>
+                    @*<a href='@Url.Action("Provider", "Users")'>Перечень пользователей</a>*@
+                    <li><a><i class="fa fa-plus"></i></a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Планы закупок</a>
+
+                <ul class="dropdown-menu">
+                    <li> <a href='@Url.Action("CreateMany", "C100tx_Orders")'>Загрузить план</a></li>
+                    <li> <a href='@Url.Action("Plans", "C100tx_PlanPositions")'>Перечень планов</a></li>
+                </ul>
+
+            </li>
+
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Спецификации</a>
+
+                <ul class="dropdown-menu">
+                    <li> <a href='@Url.Action("Index", "C100tx_Orders")'>Мои спецификации</a></li>
+                    <li> <a href='@Url.Action("CreateFromFile", "C100tx_Orders")'>Загрузить из файла</a></li>
+                    <li> <a href='@Url.Action("Create", "C100tx_Orders")'>Загрузить из плана закупок</a></li>
+                    <li> <a href='@Url.Action("Index", "C100tx_PlanPositions")'>Сформировать по ОКПД</a></li>
+                </ul>
+
+            </li>
+
+            if ((User.IsInRole("Manager") || User.IsInRole("Operator")) && !User.IsInRole("Admin"))
+            {
+                <li class="dropdown dp">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Логи</a>
+
+                    <ul class="dropdown-menu">
+                        <li> <a href='@Url.Action("Logs", "Accounts")'>Логи системы</a></li>
+                    </ul>
+
+                </li>
+            }
+            if (User.IsInRole("Admin"))
+            {
+                <li class="dropdown dp">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Админ</a>
+
+                    <ul class="dropdown-menu">
+                        <li> <a href='@Url.Action("Logs", "Accounts")'>Логи системы</a></li>
+                        <li> <a href='@Url.Action("Index", "News")'>Новости</a></li>
+                        <hr style="margin-top: 0px; margin-bottom: 0px;border-color: #ff5800" />
+                        <li> <a href='@Url.Action("Index", "ZakupkiTasks")'>Закупки - фоновая обработка</a></li>
+                        <li> <a href='@Url.Action("ModerationAccount", "Account")'>Модерация аккаунтов</a></li>
+                        <li> <a href='@Url.Action("ModerationBalance", "Accounts")'>Управление балансом</a></li>
+                        <li> <a href='@Url.Action("LoadFromFIle", "Account")'>Массовая загрузка компаний</a></li>
+                        <hr style="margin-top: 0px; margin-bottom: 0px;border-color: #ff5800" />
+                        <li> <a href='@Url.Action("LoadTemplate", "C100tx_Orders")'>Шаблоны коммерческих</a></li>
+                        <li> <a href='@Url.Action("DocumentTemplateEdit", "C100tx_Orders")'>Шаблоны документов</a></li>
+                        <hr style="margin-top: 0px; margin-bottom: 0px;border-color: #ff5800" />
+                        <li> <a href='@Url.Action("Index", "Help_Content")'>Редактор справки</a></li>
+                    </ul>
+
+                </li>
+            }
+            if (User.IsInRole("Admin"))
+            {
+                <li class="dropdown dp">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Статистика</a>
+
+                    <ul class="dropdown-menu">
+                        <!--Задача #70 Статистика звонков в 100ТЗ-->
+                        <li> <a href='@Url.Action("Index", "Statistic_pbx")'>Все звонки</a></li>
+                        <!--Конец задачи #70 Статистика звонков в 100ТЗ-->
+                        <li> <a href='@Url.Action("CurrentUserLogs", "Accounts")'>Мои клики</a></li>
+                    </ul>
+
+
+
+                </li>
+            }
+        }
+
+        if ((User.IsInRole("Manager") || User.IsInRole("Operator")) && !User.IsInRole("Admin"))
+        {
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Статистика</a>
+
+                <ul class="dropdown-menu">
+                    <li> <a href='@Url.Action("CurrentUsersStatistic", "Statistic_pbx")'>Мои звонки</a></li>
+                </ul>
+
+            </li>
+        }
+    }
+
+    @if (roles.Contains(2))//Представитель
+    {
+        if (User.IsInRole("User") || User.IsInRole("Manager"))
+        {
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Спецификации</a>
+
+                <ul class="dropdown-menu">
+                    <li> <a href='@Url.Action("Index", "C100tx_Orders")'>Мои спецификации</a></li>
+                    <li> <a href='@Url.Action("CreateFromFile", "C100tx_Orders")'>Загрузить из файла</a></li>
+                    <li> <a href='@Url.Action("Create", "C100tx_Orders")'>Загрузить из плана закупок</a></li>
+                    <li> <a href='@Url.Action("Index", "C100tx_PlanPositions")'>Сформировать по ОКПД</a></li>
+                    <li> <a href='@Url.Action("BuySpecification", "C100tx_Orders")'>Госзакупки</a></li>
+                </ul>
+
+            </li>
+
+            <li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Документооборот</a>
+
+                <ul class="dropdown-menu">
+                    <li> <a href='@Url.Action("DocumentContract", "C100tx_Orders")'> Договор </a></li>
+                    <li> <a href='@Url.Action("DocumentPayment", "C100tx_Orders")'> Счета </a></li>
+                    <li> <a href='@Url.Action("DocumentAct", "C100tx_Orders")'> Акты </a></li>
+                </ul>
+            </li>
+        }
+    }
+    @*<li class="dropdown dp">
+            <a href='@Url.Action("Index", "Projects")'>Проекты</a>
+            <ul class="dropdown-menu">
+                @foreach (var item in menuProjects)
+                {
+                    <li>
+                        <a href="@Url.Action("Edit", "Projects", new { id=item.Key })#services">@Html.DisplayFor(modelItem => item.Value)</a>
+                    </li>
+                }
+                <li><a href='@Url.Action("Create", "Projects")'><i class="fa fa-plus"></i></a></li>
+            </ul>
+        </li>*@ @*Заблокировано для релиза Статистика*@
+        @*<li class="dropdown dp">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Документы</a>
+                <ul class="dropdown-menu">
+                    <li><a><i class="fa fa-plus"></i></a></li>
+                </ul>
+            </li>*@ @*Заблокировано для релиза Статистика*@
+            @*<li class="dropdown dp">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Статистика</a>
+                    <ul class="dropdown-menu pre-scrollable" id="searchList">
+                        <li>
+                            <input id="searchQuery" type="text" class="form" onkeyup="handleSearch()" placeholder="Поиск...">
+                        </li>
+                        @foreach (var item in Model.menuProfile)
+                        {
+                            <li>
+                                @Html.ActionLink("" + @Html.DisplayFor(modelItem => item.name) + "", "Index", "Statistic", new { id = item.guid }, null)
+                            </li>
+                        }
+                    </ul>
+                </li>*@
+            @*<li class="dropdown dp">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Обзвон</a>
+                    <ul class="dropdown-menu">
+                        @foreach (var item in Model.menuProfile)
+                        {
+                        <li>
+                            @Html.ActionLink("" + @Html.DisplayFor(modelItem => item.name) + "", "Index", "Call", new { id = item.guid }, null)
+                        </li>
+                        }
+                    </ul>
+                </li>*@
+
+
+
+            @*<li class="dropdown dp">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Конструктор</a>
+                    <ul class="dropdown-menu">
+                        <li><a><i class="fa fa-plus"></i></a></li>
+                    </ul>
+                </li>*@ @*Заблокировано для релиза Статистика*@
+</ul>
+
+<script>
+    function handleSearch() {
+        var searchQuery, searchList, searchValue;
+        searchQuery = document.getElementById('searchQuery').value.toLowerCase();
+        searchList = document.getElementById('searchList').getElementsByTagName('li');
+
+        for (var i = 1; i < searchList.length; i++) {
+            searchValue = searchList[i].getElementsByTagName("a")[0].innerHTML.toLowerCase();
+            if (searchValue.indexOf(searchQuery) > -1) {
+                searchList[i].classList.remove('hidden');
+            } else {
+                searchList[i].classList.add('hidden');
+            }
+        }
+    }
+</script>

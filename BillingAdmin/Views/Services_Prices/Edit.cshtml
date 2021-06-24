@@ -1,0 +1,114 @@
+﻿@model BillingAdmin.Models.Services_Prices
+@{
+    ViewBag.Title = "Редактирование";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Редактирование</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Details","Services_Prices",new { id = Model.id })">Просмотр</a>
+            <a class="btn btn-grey-tta" href="@Url.Action("Index","Services_Prices")">В список стоимости</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.serviceId, "Услуга", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("serviceId", null, htmlAttributes: new { @class = "form" })
+                    @Html.ValidationMessageFor(model => model.serviceId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.priceTypesId, "Вид расчета", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("priceTypesId", null, htmlAttributes: new { @class = "form" })
+                    @Html.ValidationMessageFor(model => model.priceTypesId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.tarifId, "Тариф", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("tarifId", null, htmlAttributes: new { @class = "form" })
+                    @Html.ValidationMessageFor(model => model.tarifId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.preferenceId, "Тарифицируемый параметр", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownList("preferenceId", null, htmlAttributes: new { @class = "form" })
+                    @Html.ValidationMessageFor(model => model.preferenceId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.value, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.value, new { htmlAttributes = new { @class = "form" } })
+                    @Html.ValidationMessageFor(model => model.value, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.date_create, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.date_create, new { htmlAttributes = new { @class = "form" } })
+                    @Html.ValidationMessageFor(model => model.date_create, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.date_start, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.date_start, new { htmlAttributes = new { @class = "form" } })
+                    @Html.ValidationMessageFor(model => model.date_start, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.date_stop, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.date_stop, new { htmlAttributes = new { @class = "form" } })
+                    @Html.ValidationMessageFor(model => model.date_stop, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.isActive)
+                        @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-8 text-right">
+                    <input type="submit" value="Сохранить" class="btn btn-orange-tta" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#preferenceId").prepend('<option selected= "selected" value="">Не задано</option>');
+        $("#tarifId").prepend('<option selected= "selected" value="">Не задано</option>');
+    </script>
+}

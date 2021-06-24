@@ -1,0 +1,38 @@
+﻿@model BillingAdmin.Models.Services_Preferences_Types
+@{
+    ViewBag.Title = "Просмотр";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">@Model.name</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Edit","Services_Preferences_Types", new { id = Model.id })">Редактировать</a>
+            <a class="btn btn-grey-tta" href="@Url.Action("Index","Services_Preferences_Types")">Вернуться к списку</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.name)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.name)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <p>
+                <a class="btn btn-grey-tta" href="@Url.Action("Delete","Services_Preferences_Types", new { id = Model.id })">Удалить</a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿@model BillingAdmin.Models.Tarifs_Data
+
+@{
+    ViewBag.Title = "Редактирование";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Редактирование</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Details","Tarifs_Data",new { id = Model.id })">Просмотр</a>
+            <a class="btn btn-grey-tta" href="@Url.Action("Index","Tarifs_Data")">В список данных</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.value, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.value, new { htmlAttributes = new { @class = "form" } })
+                @Html.ValidationMessageFor(model => model.value, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.count, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.count, new { htmlAttributes = new { @class = "form" } })
+                @Html.ValidationMessageFor(model => model.count, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.tarifId, "tarifId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownList("tarifId", null, htmlAttributes: new { @class = "form" })
+                @Html.ValidationMessageFor(model => model.tarifId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-8 text-right">
+                <input type="submit" value="Сохранить" class="btn btn-orange-tta" />
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,89 @@
+﻿@model BillingAdmin.Models.UsersView.UserAttachToAccountViewModel
+@{
+    ViewBag.Title = "Привязка пользователя к клиенту" + Model.AccountName;
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Привязка пользователя к клиенту<br />@Model.AccountName</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-grey-tta" href="@Url.Action("Details","Accounts", new { id = Model.AccountId })">Обратно в @Model.AccountName</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="form-horizontal">
+            <form id="attach" method="post" action="/AspNetUsers/AttachToAccount">
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ListUsers, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-6">
+                        <input id="Id" name="Id" type="hidden" />
+                        <input id="Users" name="Users" type="text" class="form" />
+                        
+                            @*<select class="form" name="Id" id="Id">
+                                @foreach (var item in Model.ListUsers)
+                                {
+                                    <option value="@item.Id">@item.UserName</option>
+                                }
+                            </select>*@
+                        
+                    </div>
+                    </div>
+                    <input type="hidden" value="@Model.AccountId" name="AccountId" />
+
+                    <div class="form-group">
+                        <div class="col-md-8 text-right">
+                            <input type="submit" value="Привязать" class="btn btn-orange-tta" id="save" />
+                        </div>
+                    </div>
+
+</form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/ScriptsValidate")
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    
+
+    <script>
+        $(function () {
+            $("#Users").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/AspNetUsers/GetUserList/',
+                        data: { term: request.term },
+                        dataType: "json",
+                        type: "Get",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.UserName, value: item.Id };
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function (e, i) {
+                    e.preventDefault();
+                    $("#Id").val(i.item.value);   
+                    $("#Users").val(i.item.label);
+                }
+            });
+        });
+    </script>
+}

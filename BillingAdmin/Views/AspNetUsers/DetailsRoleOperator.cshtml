@@ -1,0 +1,118 @@
+﻿@model BillingAdmin.Models.UsersView.UsersDetailsViewModel
+@{
+    ViewBag.Title = "Пользователь - " + @Model.UserName;
+    //для фио пренести
+    var db = new BillingAdmin.Models.Entities();
+    var UserClaims = db.AspNetUserClaims.Where(user => user.UserId == Model.Id);
+    string UserFIO = "";
+}
+
+@foreach (var FIO in UserClaims)
+{
+    UserFIO += FIO.ClaimValue + " ";
+}
+
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">@Model.UserName</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("EditRoleOperator","AspNetUsers",new { id = Model.Id })">Редактировать</a>
+            <a class="btn btn-orange-tta" href="@Url.Action("ResetPassword","AspNetUsers",new { id = Model.Id })">Сменить пароль</a>
+            <a class="btn btn-grey-tta" href="@Url.Action("IndexRoleOperator","AspNetUsers")">Вернуться к списку</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    @*Добавить для фио*@
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>ФИО</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @UserFIO
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Id)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Id)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.UserName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.UserName)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Email)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Email)
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="line"></div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <label>Список клиентов к которым прикреплен пользователь @Model.UserName</label>
+        </div>
+    </div>
+    <br />
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Сокращенное название</th>
+                <th>Полное название</th>
+                <th>ИНН</th>
+                <th>КПП</th>
+                <th>Директор (ФИО)</th>
+                <th>Контактное лицо</th>
+                <th>Email адрес</th>
+                <th>Телефон</th>
+            </tr>
+            @foreach (var account in Model.Accounts)
+            {
+                <tr>
+                    <td><a href="@Url.Action("DetailsRoleOperator","AspNetUsers",new { id =  account.Id })">@Html.DisplayFor(modelItem => account.ShortLegalName)</a></td>
+                    <td>@Html.DisplayFor(modelItem => account.FullLegalName)</td>
+                    <td>@Html.DisplayFor(modelItem => account.INN)</td>
+                    <td>@Html.DisplayFor(modelItem => account.KPP)</td>
+                    <td>@Html.DisplayFor(modelItem => account.DirectorFullName)</td>
+                    <td>@Html.DisplayFor(modelItem => account.ContactName)</td>
+                    <td>@Html.DisplayFor(modelItem => account.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => account.Phone)</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <p>
+                <a class="btn btn-grey-tta" href="@Url.Action("Delete","AspNetUsers",new { id = Model.Id })">Удалить</a>
+            </p>
+        </div>
+    </div>
+</div>

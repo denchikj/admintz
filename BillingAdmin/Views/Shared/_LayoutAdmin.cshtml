@@ -1,0 +1,1243 @@
+﻿@using System.Configuration;
+@using BillingAdmin.Models
+@using Microsoft.AspNet.Identity
+@{
+    Entities db = new Entities();
+
+
+
+    //var spec_public = db.aleks_daspecs_maintbl.Where(c => c.id == spec_id).FirstOrDefault().is_public;
+
+
+    var userId = User.Identity.GetUserId();
+
+    var accountId = db.Accounts_Users.Where(c => c.userId == userId).OrderBy(c => c.id).FirstOrDefault().accountId;
+
+    if (Session["CurrentAccount"] != null)
+    {
+        accountId = (int)Session["CurrentAccount"];
+    }
+    //var user = User;
+
+    //db.Accounts.Where(c=>c.Id==accountId).FirstOrDefault().
+    var roles = db.Accounts_Roles.Where(c => c.Account == accountId).Select(c => c.Role);
+
+    var u = db.AspNetUsers.Find(userId);
+
+    var r = roles.ToList();
+
+
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Платформа прямых контрактов">
+    <meta name="author" content="">
+    <meta name="twitter:image:src" content="~/images/100tz.png">
+    <meta property="og:image" content="~/images/100tz.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/images/twintel-ico.ico" type="image/x-icon">
+
+
+
+    @RenderSection("JavaScript", required: false)
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,700|Play:700&amp;subset=cyrillic" rel="stylesheet">
+    <link href="~/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" /><!-- end Fonts -->
+    <!-- Plugins core CSS -->
+    @Styles.Render("~/StylesLibrary")
+    <!-- end Plugins core CSS -->
+    <!-- Datatable CSS -->
+    @Styles.Render("~/StylesDataTable")
+    <!-- end Datatable CSS -->
+    <!-- Custom styles for this template -->
+    @Styles.Render("~/StylesShared")
+    <!-- end Custom styles for this template -->
+</head>
+<body>
+    <!--Header-->
+    <header class="header">
+        <div class="navbar navbar-default no-padding" role="navigation" id="topPadding">
+            <div class="container-fluid">
+                <div class="navbar-header hidden-xs hidden-sm">
+                    <a class="navbar-brand" href="~/Home" style="font-weight: 900;font-family: none; font-size: 24px;">
+                        @*<img style="height:30px;margin-top:-5px;" src="~/images/logo3.png" alt="Платформа прямых контрактов">*@
+                        100<span style="color:#ff5800">ТЗ</span>.РФ
+                    </a>
+                    @if (ConfigurationManager.AppSettings["SystemMode"].ToString().Equals("TEST"))
+                    {
+                        <span style="margin-left: -25px;">тест</span>
+                    }
+                </div>
+                <div class="header_two">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-right">
+                        @if (Request.IsAuthenticated)
+                        {
+                            Html.RenderAction("_AccountMenu", "Home");
+                            Html.RenderAction("_ProfileMenu", "Home");
+                            @*<button class="btn btn-sm navbar-autorization red-btn chat-btn" onclick="document.getElementById('chat').classList.toggle('hidden')">
+                                    <i class="fa fa-comments"></i>
+                                </button>*@
+                        }
+                    </div><!--./navbar-right-->
+                    <div class="clearfix visible-xs"></div>
+                    <div class="collapse navbar-collapse navbar-left">
+                        @if (Request.IsAuthenticated)
+                        {
+                            Html.RenderAction("_MainMenu", "Home");
+                        }
+                    </div>
+                </div>
+                <!--/.nav-collapse -->
+            </div><!--/.container-->
+        </div><!--/.navbar-->
+    </header><!--end Header-->
+    @*<div id="chat" class="hidden col-xs-12 col-sm-6 col-md-3 pull-right" style="min-height:90vh;height:90vh;max-height:90vh">
+            <div class="chat-header">
+                <h3>Чат с менеджером <span class="pull-right" onclick="document.getElementById('chat').classList.toggle('hidden')">&times;</span></h3>
+            </div>
+            <br />
+            <div class="chat-body" style="max-height:57vh;height:57vh">
+                <div class="chat-body-inner">
+                    <div class="panel user">
+                        <p>
+                            Добрый день!
+                        </p>
+                    </div>
+                    <div class="panel manager">
+                        <p>
+                            Здравстуйте!!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <div class="panel">
+                    <textarea class="form" placeholder="Введите сообщение..."></textarea>
+                    <button class="btn btn-sm red-btn pull-right">Отправить</button>
+                </div>
+            </div>
+        </div>*@
+    <!-- панель справки -->
+    <input type="checkbox" id="side-checkbox" />
+    <div class="side-panel">
+
+        <label class="side-button-2 hide" for="side-checkbox"><img src="~/images/more-info.png" /></label>
+        <!--закрытие панели-->
+        <label class="close-help side-button-1" for="side-checkbox"></label>
+        <div class="find">
+            <input id="inp" placeholder="Поиск">
+            <script>
+                window.onload = function () {//onload begin
+                    var inp = document.getElementById('inp');
+
+                    var find = function () {//find begin
+                        var parent = document.getElementById('side-panel');
+                        var divs = parent.getElementsByTagName('div');
+                        len = divs.length;
+
+                        for (var i = 0; i < len; i++) {//for begin
+                            if (divs[i].childNodes.length == 1 && inp.value != divs[i].innerHTML && inp.value != '') {
+                                divs[i].style.display = 'none';
+                            } else if (divs[i].style.display != 'block') {
+                                divs[i].style.display = 'block';
+                            }
+                        }//for end
+
+                    }//find end
+
+                    inp.onkeyup = function () {
+                        find();
+                    }
+
+                }//onload end
+            </script>
+        </div>
+        <div class="side-title">Раздел помощи по сайту </div>
+        <!--поиск в панели -->
+
+        @Html.Partial("~/Views/Help_Content/Index.cshtml")
+    </div>
+    <!--/панель справки-->
+    <!--Документоборот и прочие уведолмения аккаунта справа-->
+    <div style="position:absolute; position: fixed; z-index: 100; opacity: 0.9;" class="col-md-12">
+        @if (db.Accounts.FirstOrDefault(a => a.Id == accountId).INN == (null) || db.Accounts.FirstOrDefault(a => a.Id == accountId).INN == Convert.ToString(5000000000) || db.Accounts.FirstOrDefault(a => a.Id == accountId).INN == "5000000000  ")
+        {
+            <div class="alert alert-danger col-md-offset-6 col-md-3" role="alert" style="float: right; padding: 8px; margin-bottom: 2px; margin-top: 4px;">
+                Заполните ИНН в <a href="@Url.Action("Edit", "Accounts", new { id = Session["CurrentAccount"] })" style="color:blue;text-decoration:underline">настройках профиля</a>
+            </div>
+        }
+        @if ((roles.Contains(1) || roles.Contains(4)) && db.Accounts.FirstOrDefault(a => a.Id == accountId).Currency == (null))
+        {
+            <div class="alert alert-danger col-md-offset-6 col-md-3" role="alert" style="float: right; padding: 8px; margin-bottom: 2px; margin-top: 4px;">
+                Внимание!!! По умолчанию, расчёт цен производится в рублях, если вы желаете выбрать другую валюту, пожалуйста, выберите её в <a href="@Url.Action("Edit", "Accounts", new { id = Session["CurrentAccount"] })" style="color:blue;text-decoration:underline">настройках профиля</a>
+            </div>
+        }
+        @if (db.StatusSign.Any(a => a.account_id == accountId) == false && !roles.Contains(1))
+        {
+            <div class="alert alert-danger col-md-offset-6 col-md-3" role="alert" style="float: right; padding: 8px; margin-bottom: 2px; margin-top: 4px;">
+                Подпишите <a href='@Url.Action("DocumentContract", "C100tx_Orders")' style="color:blue;text-decoration:underline"> договор </a>
+            </div>
+        }
+    </div>
+    <!--конец документоборота-->
+    @if (roles.Contains(1) || roles.Contains(2))
+    {
+        if (User.IsInRole("Manager") || User.IsInRole("Operator"))
+        {
+            if (u.PhoneNumber != null)
+            {
+                if (u.PhoneNumber.Contains(":"))
+                {
+                    <div id="slideout">
+                        <img src="~/images/feedback.png" alt="Feedback" />
+                        <div id="slideout_inner">
+
+
+
+                            <div class="text-center">
+                                <h2 id="notifyFlash" class="text-danger"></h2>
+
+                                <div style="margin-top:10px">
+                                    <span id="status"></span>
+                                </div>
+                            </div>
+
+
+                            <div id="callPanel" style="margin-top:-20px;">
+                                <input id="callNumberText" style="margin-bottom:10px;" type="text" class="form-control" placeholder="Номер для звонка">
+                                <button id="callNumberButton" type="button" class="btn btn-success" onclick="call()">Вызов</button>
+                                <button id="hangUpButton" type="button" class="btn btn-danger d-none" onclick="hangUp()">Отбой</button>
+                            </div>
+
+                            <audio id="localAudio" autoPlay muted></audio>
+                            <audio id="remoteAudio" autoPlay></audio>
+                            <audio id="sounds" autoPlay></audio>
+
+
+                        </div>
+                    </div>
+                }
+            }
+        }
+    }
+    @RenderBody()
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: 1024px">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <br />
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding:20px;">
+
+                </div>
+                <div class="modal-footer">
+                    @Html.DropDownList("statusBox", new SelectList(db.C100tx_OrdersStatuses, "id", "name"), htmlAttributes: new { @class = "form-control form-select", @style = "float:left;width:300px;" })
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" id="updateAccountModalBtn" class="btn btn-primary">Сохранить</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Footer-->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <small>
+                    © 100 технических заданий 2019
+                    <!--
+                    <a target="_blank" href="http://www.l06.ru/">Идея проекта ГК Лидер</a>
+                    -->
+                </small> <small class="pull-right">Реализация проекта <a target="_blank" href="http://twintel.host" style="color: #337ab7;text-decoration: none;">Центр разработок TWINTECH</a></small>
+            </p>
+            <div class="text-muted" style="text-align: center;">
+                <div>+7 (999) 341-00-03 / info@100tz.ru</div>
+
+            </div>
+        </div>
+    </footer>
+    <!--/.footer-->
+    @Scripts.Render("~/ScriptsLibrary")
+    <!-- Datatable JS -->
+    @Scripts.Render("~/ScriptsDataTable")
+    <!-- end Datatable JS -->
+    <!-- Custom scripts for this template -->
+    @Scripts.Render("~/ScriptsShared")
+
+
+    <script src="~/Scripts/jssip-3.2.14.js"></script>
+
+    <link rel="stylesheet" href="https://www.jqueryscript.net/demo/Tooltip-style-Floating-Menu-Plugin-With-jQuery-floatingMenu/src/css/floating-menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <script src="https://www.jqueryscript.net/demo/Tooltip-style-Floating-Menu-Plugin-With-jQuery-floatingMenu/src/js/floating-menu.js"></script>
+
+
+    <!-- end Custom scripts for this template -->
+    @RenderSection("scripts", required: false)
+    <!-- Окно справки. Скрипты и стили-->
+    <script>
+        $(function () {
+            //uploadHelp('helpAll', null, null);
+            //uploadHelp('helpCurrentPage', document.location.href, null);
+        });
+    </script>
+    <script type="text/javascript">
+        (function ($, window, document, undefined) {
+            "use strict";
+            var pluginName = 'simpleAccordion',
+                defaults = {
+                    multiple: false,
+                    speedOpen: 300,
+                    speedClose: 150,
+                    easingOpen: null,
+                    easingClose: null,
+                    headClass: 'accordion-header',
+                    bodyClass: 'accordion-body',
+                    openClass: 'open',
+                    defaultOpenClass: 'default-open',
+                    cbClose: null, //function (e, $this) {},
+                    cbOpen: null //function (e, $this) {}
+                };
+            function Accordion(element, options) {
+                this.$el = $(element);
+                this.options = $.extend({}, defaults, options);
+                this._defaults = defaults;
+                this._name = pluginName;
+                if (typeof this.$el.data('multiple') !== 'undefined') {
+                    this.options.multiple = this.$el.data('multiple');
+                } else {
+                    this.options.multiple = this._defaults.multiple;
+                }
+                this.init();
+            }
+            Accordion.prototype = {
+                init: function () {
+                    var o = this.options,
+                        $headings = this.$el.children('.' + o.headClass);
+                    $headings.on('click', { _t: this }, this.headingClick);
+                    $headings.filter('.' + o.defaultOpenClass).first().click();
+                },
+                headingClick: function (e) {
+                    var $this = $(this),
+                        _t = e.data._t,
+                        o = _t.options,
+                        $headings = _t.$el.children('.' + o.headClass),
+                        $currentOpen = $headings.filter('.' + o.openClass);
+                    if (!$this.hasClass(o.openClass)) {
+                        if ($currentOpen.length && o.multiple === false) {
+                            $currentOpen.removeClass(o.openClass).next('.' + o.bodyClass).slideUp(o.speedClose, o.easingClose, function () {
+                                if ($.isFunction(o.cbClose)) {
+                                    o.cbClose(e, $currentOpen);
+                                }
+                                $this.addClass(o.openClass).next('.' + o.bodyClass).slideDown(o.speedOpen, o.easingOpen, function () {
+                                    if ($.isFunction(o.cbOpen)) {
+                                        o.cbOpen(e, $this);
+                                    }
+                                });
+                            });
+                        } else {
+                            $this.addClass(o.openClass).next('.' + o.bodyClass).slideDown(o.speedOpen, o.easingOpen, function () {
+                                $this.removeClass(o.defaultOpenClass);
+                                if ($.isFunction(o.cbOpen)) {
+                                    o.cbOpen(e, $this);
+                                }
+                            });
+                        }
+                    } else {
+                        $this.removeClass(o.openClass).next('.' + o.bodyClass).slideUp(o.speedClose, o.easingClose, function () {
+                            if ($.isFunction(o.cbClose)) {
+                                o.cbClose(e, $this);
+                            }
+                        });
+                    }
+                }
+            };
+            $.fn[pluginName] = function (options) {
+                return this.each(function () {
+                    if (!$.data(this, 'plugin_' + pluginName)) {
+                        $.data(this, 'plugin_' + pluginName,
+                            new Accordion(this, options));
+                    }
+                });
+            };
+        }(jQuery, window, document));
+    </script>
+    <script>
+        $(function () {
+            $('.accordion-group').simpleAccordion();
+        });
+    </script>
+    @*<script type="text/javascript">
+                function uploadHelp(idElements, pageUrl, parentCategoryId) {
+                   // alert('работает ' + idElements + ' pageUrl=' + pageUrl + ' parentCategoryId=' + parentCategoryId);
+                    $.ajax({
+                        url: '@Url.Action("GetHelpContent", "Help_Content")',
+                        type: "POST",
+                        data: {
+                            CurrentPageUrl: pageUrl,
+                            HParentCategoryId: parentCategoryId
+                        },
+                        //dataType: "json",
+                        //contentType: "application/text; charset=utf-8",
+                        success: function (data) {
+                            if (data != null) {
+                                $('#' + idElements).html(data);
+                            }
+                            else if (idElements == 'helpAll') {
+                                $('.side-button-2').AddClass('hide');
+                            }
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                }
+        </script>*@
+
+    <style>
+        input {
+            width: 200px;
+            font-size: 13px;
+            color: #000000;
+            padding: 6px 0 4px 10px;
+            border: 1px solid #cecece;
+            background: #F6F6f6;
+            border-radius: 5px;
+        }
+    </style>
+    <!--закрытие панели-->
+    <style>
+        .close-help {
+            position: absolute;
+            right: 32px;
+            top: 32px;
+            width: 32px;
+            height: 32px;
+            opacity: 0.3;
+        }
+
+            .close-help:hover {
+                opacity: 1;
+            }
+
+            .close-help:before, .close-help:after {
+                position: absolute;
+                left: 15px;
+                content: ' ';
+                height: 33px;
+                width: 2px;
+                background-color: #ff5800;
+            }
+
+            .close-help:before {
+                transform: rotate(45deg);
+            }
+
+            .close-help:after {
+                transform: rotate(-45deg);
+            }
+    </style>
+    <script>
+        $('.close-help').on('click', function () {
+            $('.side-button-2').removeClass('hide');
+        })
+    </script>
+    <style>
+        .hrefTitle {
+            text-decoration: none !important;
+        }
+    </style>
+    <style>
+        /* Оформление панели */
+        #side-checkbox {
+            display: none;
+        }
+
+        .side-panel {
+            position: fixed;
+            z-index: 999999;
+            top: 0;
+            right: -1500px;
+            /*background: #337AB7;*/
+            background: #464750; /*rgba(255, 88, 0, 0.7);*/ /*#ff5800;*/
+            transition: all 0.5s;
+            width: 620px;
+            height: 100vh;
+            box-shadow: 10px 0 20px rgba(0,0,0,0.4);
+            color: #FFF;
+            padding: 40px 20px;
+            overflow: auto;
+        }
+
+        .side-title {
+            font-size: 20px;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #BFE2FF;
+        }
+        /* Оформление кнопки на странице */
+        .side-button-1-wr {
+            text-align: center; /* Контейнер для кнопки, чтобы было удобнее ее разместить */
+        }
+
+        .side-button-1 .side-b {
+            margin: 10px;
+            text-decoration: none;
+            position: relative;
+            font-size: 20px;
+            line-height: 20px;
+            padding: 12px 30px;
+            color: #FFF;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-family: 'Roboto Condensed', Тahoma, sans-serif;
+            background: #337AB7;
+            cursor: pointer;
+            border: 2px solid #BFE2FF;
+        }
+
+            .side-button-1 .side-b:hover,
+            .side-button-1 .side-b:active,
+            .side-button-1 .side-b:focus {
+                color: #FFF;
+            }
+
+            .side-button-1 .side-b:after,
+            .side-button-1 .side-b:before {
+                position: absolute;
+                height: 4px;
+                left: 50%;
+                bottom: -6px;
+                content: "";
+                transition: all 280ms ease-in-out;
+                width: 0;
+            }
+
+        .side-button-1 .side-open:after,
+        .side-button-1 .side-open:before {
+            background: green;
+        }
+
+        .side-button-1 .side-close:after,
+        .side-button-1 .side-close:before {
+            background: red;
+        }
+
+        .side-button-1 .side-b:before {
+            top: -6px;
+        }
+
+        .side-button-1 .side-b:hover:after,
+        .side-button-1 .side-b:hover:before {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Переключатели кнопки 1 */
+        .side-button-1 .side-close {
+            display: none;
+        }
+
+        #side-checkbox:checked + .side-panel + .side-button-1-wr .side-button-1 .side-open {
+            display: none;
+        }
+
+        #side-checkbox:checked + .side-panel + .side-button-1-wr .side-button-1 .side-close {
+            display: block;
+        }
+
+        #side-checkbox:checked + .side-panel {
+            right: 0;
+        }
+
+        #side-checkbox:checked + .side-panel {
+            /*right: 50px;*/
+        }
+        /* Оформление кнопки на панеле */
+        .side-button-2 {
+            /*font-size: 30px;
+            border-radius: 20px;
+            position: absolute;
+            z-index: 1;
+            top: 8px;
+            right: 8px;
+            cursor: pointer;
+            transform: rotate(45deg);
+            color: #BFE2FF;
+            transition: all 280ms ease-in-out;*/
+            position: fixed;
+            bottom: 100px;
+            right: 0;
+            width: 35px;
+            padding: 5px 0;
+            text-align: center;
+            /*background: #ff5800;*/
+            -webkit-transition-duration: 0.3s;
+            -moz-transition-duration: 0.3s;
+            -o-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-border-radius: 0 5px 5px 0;
+            -moz-border-radius: 0 5px 5px 0;
+            border-radius: 0 5px 5px 0;
+            z-index: 1000;
+            visibility: visible;
+        }
+
+            .side-button-2:hover {
+                transform: rotate(35deg) scale(1.1);
+                color: #FFF;
+            }
+
+            .side-button-2:active {
+                visibility: hidden;
+            }
+
+        .hide {
+            visibility: hidden !important;
+        }
+    </style>
+    <script>
+        $('.side-button-2').on('click', function () {
+            $(this).addClass('hide');
+
+        })
+    </script>
+    <!--/КОНЕЦ Окно справки. Скрипты и стили-->
+
+    <script>
+
+
+    $(this).ready(function(){
+
+        var properties = document.getElementById('PropNameCompany').value;
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetProp", "Home")',
+                data: {
+                    prop: properties
+                },
+                success: function (result) {
+
+                }
+                //,error: errorFunc
+            });
+        });
+
+
+    </script>
+
+    @if (roles.Contains(1) || roles.Contains(2))
+    {
+        if (User.IsInRole("Manager") || User.IsInRole("Operator"))
+        {
+            <style>
+
+
+                #slideout {
+                    position: fixed;
+                    top: 140px;
+                    left: 0;
+                    width: 35px;
+                    padding: 12px 0;
+                    text-align: center;
+                    background: #ff5800;
+                    -webkit-transition-duration: 0.3s;
+                    -moz-transition-duration: 0.3s;
+                    -o-transition-duration: 0.3s;
+                    transition-duration: 0.3s;
+                    -webkit-border-radius: 0 5px 5px 0;
+                    -moz-border-radius: 0 5px 5px 0;
+                    border-radius: 0 5px 5px 0;
+                    z-index: 1000;
+                }
+
+                #slideout_inner {
+                    position: fixed;
+                    top: 140px;
+                    left: -250px;
+                    background: #e9eceb;
+                    width: 250px;
+                    padding: 25px;
+                    height: 130px;
+                    -webkit-transition-duration: 0.3s;
+                    -moz-transition-duration: 0.3s;
+                    -o-transition-duration: 0.3s;
+                    transition-duration: 0.3s;
+                    text-align: left;
+                    -webkit-border-radius: 0 0 5px 0;
+                    -moz-border-radius: 0 0 5px 0;
+                    border-radius: 0 0 5px 0;
+                    z-index: 1000;
+                }
+
+                    #slideout_inner textarea {
+                        width: 190px;
+                        height: 100px;
+                        margin-bottom: 6px;
+                    }
+
+                #slideout:hover {
+                    left: 250px;
+                }
+
+                    #slideout:hover #slideout_inner {
+                        left: 0;
+                    }
+
+                .tool-tip {
+                    text-decoration: none;
+                    position: absolute;
+                    opacity: unset;
+                }
+
+                    .tool-tip span {
+                        display: none;
+                        -moz-border-radius: 6px;
+                        -webkit-border-radius: 6px;
+                        border-radius: 6px;
+                        color: black;
+                        background: white;
+                    }
+
+                        .tool-tip span img {
+                            float: left;
+                            margin: 0px 8px 8px 0;
+                        }
+
+                    .tool-tip:hover span {
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        z-index: 1000;
+                        width: auto;
+                        max-width: 420px;
+                        min-height: 128px;
+                        border: 1px solid black;
+                        margin-top: 12px;
+                        margin-left: 32px;
+                        overflow: hidden;
+                        padding: 8px;
+                    }
+            </style>
+
+            if (u.PhoneNumber != null)
+            {
+                if (u.PhoneNumber.Contains(":"))
+                {
+
+
+
+                    <script>
+        window.localStorage.setItem('debug', '* -engine* -socket* *ERROR* *WARN*');
+        var _soundsControl;
+        var login;
+        var password;
+        var accountId;
+
+        function gettoken() {
+                var token = '@Html.AntiForgeryToken()';
+                token = $(token).val();
+                return token;
+
+    }
+
+    var accounIdForModal;
+    var specIdForModal;
+
+    $.fn.selectOption = function (val) {
+        this.val(val)
+            .find('option')
+            .removeAttr('selected')
+            .parent()
+            .find('option[value="' + val + '"]')
+            .attr('selected', 'selected')
+            .parent()
+            .trigger('change');
+
+        return this;
+    };
+
+        $(document).ready(function () {
+            console.log('on loadPage');
+
+            $("#loginText").val(localStorage.getItem("login"));
+            $("#passwordText").val(localStorage.getItem("pwd"));
+            $("#callNumberText").val(localStorage.getItem("callNumber"));
+
+            _soundsControl = document.getElementById("sounds");
+
+            login();
+
+            $('#myModal').on('show.bs.modal', function (event) {
+
+                var button = $(event.relatedTarget);// Button that triggered the modal
+                accounIdForModal = button.data('whatever'); // Extract info from data-* attributes
+                specIdForModal = button.data('specid'); // Extract info from data-* attributes
+
+                console.log("Modal ==> " + specIdForModal)
+
+                 $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("GetStatus", "Accounts")',
+                    data: {
+                        spec_id: specIdForModal,
+                        prov_id: accounIdForModal
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        //$('#statusBox').selectOption(data).change();
+                        $('#statusBox').val(data).change();
+
+                    }
+                });
+
+            });
+
+
+
+
+
+            $("#statusBox").change(function () {
+                var thisElemValue = $(this).val();
+                console.log("specIdForModal ==> " + specIdForModal);
+
+
+            });
+        });
+
+        function login() {
+            console.log("on login");
+            // this.loginText = "202";//$("#loginText");
+            login = "@u.PhoneNumber.Split(':')[0]";
+            password = "@u.PhoneNumber.Split(':')[1]";
+            //this.passwordText = "54784073e73e69b2d47aaf578dcc87ca";//$("#passwordText");
+            //this.loginButton = $("#loginButton");
+            // this.logOutButton = $("#logOutButton");
+            this.callButton = $('#callNumberButton');
+            this.hangUpButton = $('#hangUpButton');
+
+
+            localStorage.setItem("login", login);
+            localStorage.setItem("pwd", password);
+
+            socket = new JsSIP.WebSocketInterface("wss://pbx.twintel.ru:8089/asterisk/ws");
+            _ua = new JsSIP.UA(
+                {
+                    uri: "sip:" + login + "@@pbx.twintel.ru",
+                    password: password,
+                    display_name: login,
+                    sockets: [socket]
+                });
+
+            // соединяемся с астером
+            this._ua.on('connecting', () => {
+                console.log("UA connecting");
+            });
+
+            // соединились с астером
+            this._ua.on('connected', () => {
+                console.log("UA connected");
+            });
+
+            // астер нас зарегал, теперь можно звонить и принимать звонки
+            this._ua.on('registered', () => {
+                console.log("UA registered");
+                $(".profil-icon").css("color", "#60fd60");
+
+                //this.loginButton.addClass('d-none');
+                //this.logOutButton.removeClass('d-none');
+                // this.loginText.prop('disabled', true);
+                //this.passwordText.prop('disabled', true);
+
+                $("#callPanel").removeClass('d-none');
+            });
+
+            // астер про нас больше не знает
+            this._ua.on('unregistered', () => {
+                console.log("UA unregistered");
+                $(".profil-icon").css("color", "white");
+            });
+
+            // астер не зарегал нас, что то не то, скорее всего неверный логин или пароль
+            this._ua.on('registrationFailed', (data) => {
+                console.error("UA registrationFailed", data.cause);
+            });
+
+            // заводим шарманку
+            this._ua.start();
+        }
+
+        function logout() {
+            console.log("on logout")
+
+            //this.loginButton.removeClass('d-none');
+            //this.logOutButton.addClass('d-none');
+            //this.loginText.prop('disabled', false);
+            //this.passwordText.prop('disabled', false);
+
+            $("#callPanel").addClass('d-none');
+
+            // закрываем всё нафиг, вылогиниваемся из астера, закрываем коннект
+            this._ua.stop();
+        }
+
+        function callTo(number) {
+
+            this.session = this._ua.call("99" + number, {
+                pcConfig:
+                {
+                    hackStripTcp: true, // Важно для хрома, чтоб он не тупил при звонке
+                    rtcpMuxPolicy: 'negotiate', // Важно для хрома, чтоб работал multiplexing. Эту штуку обязательно нужно включить на астере.
+                    iceServers: []
+                },
+                mediaConstraints:
+                {
+                    audio: true, // Поддерживаем только аудио
+                    video: false
+                },
+                rtcOfferConstraints:
+                {
+                    offerToReceiveAudio: 1, // Принимаем только аудио
+                    offerToReceiveVideo: 0
+                }
+            });
+            // Астер нас соединил с абонентом
+            this.session.on('connecting', () => {
+                console.log("UA session connecting");
+                playSound("ringback.ogg", true);
+
+                // Тут мы подключаемся к микрофону и цепляем к нему поток, который пойдёт в астер
+                let peerconnection = this.session.connection;
+                let localStream = peerconnection.getLocalStreams()[0];
+
+                // Handle local stream
+                if (localStream) {
+                    // Clone local stream
+                    this._localClonedStream = localStream.clone();
+
+                    console.log('UA set local stream');
+
+                    let localAudioControl = document.getElementById("localAudio");
+                    localAudioControl.srcObject = this._localClonedStream;
+                }
+
+                // Как только астер отдаст нам поток абонента, мы его засунем к себе в наушники
+                peerconnection.addEventListener('addstream', (event) => {
+                    console.log("UA session addstream");
+
+                    let remoteAudioControl = document.getElementById("remoteAudio");
+                    remoteAudioControl.srcObject = event.stream;
+                });
+            });
+
+            // В процессе дозвона
+            this.session.on('progress', () => {
+                console.log("UA session progress");
+                playSound("ringback.ogg", true);
+            });
+
+            // Дозвон завершился неудачно, например, абонент сбросил звонок
+            this.session.on('failed', (data) => {
+                console.log("UA session failed");
+                stopSound("ringback.ogg");
+                playSound("rejected.mp3", false);
+
+                this.callButton.removeClass('d-none');
+                this.hangUpButton.addClass('d-none');
+            });
+
+            // Поговорили, разбежались
+            this.session.on('ended', () => {
+                console.log("UA session ended");
+                $('.callTo').css('visibility', 'visible');
+                $('.hangUp').css('visibility', 'hidden');
+
+                playSound("rejected.mp3", false);
+                JsSIP.Utils.closeMediaStream(this._localClonedStream);
+
+                this.callButton.removeClass('d-none');
+                this.hangUpButton.addClass('d-none');
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("AttachCallToAccount", "Call")',
+                        data: {
+                            accountId: accountId,
+                            userId: '@User.Identity.GetUserId()',
+                            __RequestVerificationToken: gettoken(),
+                            number: number
+                        },
+                        success: function (result) {
+
+                        }
+                        //,error: errorFunc
+                    });
+            });
+
+            // Звонок принят, моно начинать говорить
+            this.session.on('accepted', () => {
+                console.log("UA session accepted");
+                stopSound("ringback.ogg");
+                playSound("answered.mp3", false);
+            });
+        }
+
+        function call() {
+            let number = $('#callNumberText').val();
+            localStorage.setItem("callNumber", number);
+
+            this.callButton.addClass('d-none');
+            this.hangUpButton.removeClass('d-none');
+
+            // Делаем ИСХОДЯЩИЙ звонок
+            // Принимать звонки этот код не умеет!
+            this.session = this._ua.call("99" + number, {
+                pcConfig:
+                {
+                    hackStripTcp: true, // Важно для хрома, чтоб он не тупил при звонке
+                    rtcpMuxPolicy: 'negotiate', // Важно для хрома, чтоб работал multiplexing. Эту штуку обязательно нужно включить на астере.
+                    iceServers: []
+                },
+                mediaConstraints:
+                {
+                    audio: true, // Поддерживаем только аудио
+                    video: false
+                },
+                rtcOfferConstraints:
+                {
+                    offerToReceiveAudio: 1, // Принимаем только аудио
+                    offerToReceiveVideo: 0
+                }
+            });
+
+            // Это нужно для входящего звонка, пока не используем
+            this._ua.on('newRTCSession', (data) => {
+                if (!this._mounted)
+                    return;
+
+                if (data.originator === 'local')
+                    return;
+
+                // audioPlayer.play('ringing');
+            });
+
+            // Астер нас соединил с абонентом
+            this.session.on('connecting', () => {
+                console.log("UA session connecting");
+                playSound("ringback.ogg", true);
+
+                // Тут мы подключаемся к микрофону и цепляем к нему поток, который пойдёт в астер
+                let peerconnection = this.session.connection;
+                let localStream = peerconnection.getLocalStreams()[0];
+
+                // Handle local stream
+                if (localStream) {
+                    // Clone local stream
+                    this._localClonedStream = localStream.clone();
+
+                    console.log('UA set local stream');
+
+                    let localAudioControl = document.getElementById("localAudio");
+                    localAudioControl.srcObject = this._localClonedStream;
+                }
+
+                // Как только астер отдаст нам поток абонента, мы его засунем к себе в наушники
+                peerconnection.addEventListener('addstream', (event) => {
+                    console.log("UA session addstream");
+
+                    let remoteAudioControl = document.getElementById("remoteAudio");
+                    remoteAudioControl.srcObject = event.stream;
+                });
+            });
+
+            // В процессе дозвона
+            this.session.on('progress', () => {
+                console.log("UA session progress");
+                playSound("ringback.ogg", true);
+            });
+
+            // Дозвон завершился неудачно, например, абонент сбросил звонок
+            this.session.on('failed', (data) => {
+                console.log("UA session failed");
+                stopSound("ringback.ogg");
+                playSound("rejected.mp3", false);
+
+                this.callButton.removeClass('d-none');
+                this.hangUpButton.addClass('d-none');
+            });
+
+            // Поговорили, разбежались
+            this.session.on('ended', () => {
+                console.log("UA session ended");
+                playSound("rejected.mp3", false);
+                JsSIP.Utils.closeMediaStream(this._localClonedStream);
+
+                this.callButton.removeClass('d-none');
+                this.hangUpButton.addClass('d-none');
+            });
+
+            // Звонок принят, моно начинать говорить
+            this.session.on('accepted', () => {
+                console.log("UA session accepted");
+                stopSound("ringback.ogg");
+                playSound("answered.mp3", false);
+            });
+        }
+
+        function hangUp() {
+            this.session.terminate();
+            JsSIP.Utils.closeMediaStream(this._localClonedStream);
+        }
+
+        function playSound(soundName, loop) {
+            this._soundsControl.pause();
+            this._soundsControl.currentTime = 0.0;
+            this._soundsControl.src = "/sounds/" + soundName
+            this._soundsControl.loop = loop;
+            this._soundsControl.play();
+        }
+
+        function stopSound() {
+            this._soundsControl.pause();
+            this._soundsControl.currentTime = 0.0;
+        }
+
+        var mymodal;
+        $(document).ready(function () {
+            $('.accountModal').click(function (e) {
+                console.log("account click");
+              //  e.preventDefault();
+                mymodal = $("#myModal");
+                mymodal.find(".accountId").attr("value", $(this).attr("data-id"));
+                // Show the modal
+                mymodal.modal("show");
+            });
+
+
+
+
+            $('#accountMenu').on('change', function (e) {
+                var optionSelected = $("option:selected", this);
+                var valueSelected = this.value;
+                console.log(valueSelected);
+
+                location.replace("/Accounts/Select/" + valueSelected);
+            });
+
+
+
+
+
+         });
+
+        function gettoken() {
+                var token = '@Html.AntiForgeryToken()';
+                token = $(token).val();
+                return token;
+    }
+
+
+     $(document).on('submit', '#AccountModal_Form', function () {
+        //$('#myContainer').css('visibility', 'visible');
+        console.log("---send--");
+        $("#updateAccountModalBtn").addClass("loading disabled");
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("EditModal", "Accounts")',
+            enctype: 'application/x-www-form-urlencoded',
+            processData: false,
+            contentType: false,
+            data: new FormData(this),
+            success: function (data) {
+                $("#updateAccountModalBtn").removeClass("loading disabled");
+                //console.log(data);
+                // alert(data);
+                console.log("---is sended--");
+            }
+        });
+        return false;
+
+    });
+
+    $("#updateAccountModalBtn").click(function () {
+        console.log("btn click");
+
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("UpdateStatus", "Accounts")',
+                    data: {
+                        spec_id: specIdForModal,
+                        status: $("#statusBox").val(),
+                        value: "",
+                        prov_id: accounIdForModal
+                    },
+                    success: function (data) {
+                        console.log(data);
+
+                    }
+                });
+
+        $("#AccountModal_Form").submit();
+    });
+
+        $('#myModal').on('show.bs.modal', function (event) {
+            var modal = $(this);
+            var button = $(event.relatedTarget);// Button that triggered the modal
+            accountId = button.data('whatever'); // Extract info from data-* attributes
+            console.log(accountId);
+
+            modal.find('.modal-body').html();
+
+                 $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("_AccountModal", "Accounts")',
+                    data: {
+                        id: accountId,
+                            __RequestVerificationToken: gettoken()
+                    },
+                    success: function (result) {
+                            //console.log(result);
+                            modal.find('.modal-body').html(result);
+
+
+                    }
+         });
+
+        });
+                    </script>
+
+                }
+            }
+
+        }
+    }
+
+
+</body>
+</html>

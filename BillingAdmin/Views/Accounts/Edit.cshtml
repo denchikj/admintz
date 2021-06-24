@@ -1,0 +1,294 @@
+﻿@model BillingAdmin.Models.Accounts
+@using BillingAdmin.Models
+@{
+    ViewBag.Title = "Редактирование - " + @Model.ShortLegalName;
+
+    Entities db = new Entities();
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">@Model.ShortLegalName</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Details","Accounts",new { id = Model.Id })">Просмотр</a>
+            <a class="btn btn-grey-tta" href="@Url.Action("Index","Accounts")">В список клиентов</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <ul class="nav nav-tabs custom-tabs">
+            <li class="active"><a data-toggle="tab" href="#commonDataEdit">Общие данные</a></li>
+            <li><a data-toggle="tab" href="#bankDetailsEdit">Банковские реквизиты</a></li>
+            <li><a data-toggle="tab" href="#contractEdit">Договор</a></li>
+            <li><a data-toggle="tab" href="#contractPref">Настройки</a></li>
+        </ul>
+        <div class="tab-content panel-body custom-tabs-content" id="custom-data">
+            <div id="commonDataEdit" class="tab-pane fade in active">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="company">Название или ИНН компании* (реквизиты заполнятся автоматически):</label>
+                            <input class="form" type="text" name="company" id="company" value="" placeholder="Введите название, адрес, ИНН или ОГРН" />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FullLegalName, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.FullLegalName, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.FullLegalName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label" for="inn">ИНН:</label>
+                            <input class="form" type="text" name="inn" id="inn" value="" placeholder="ИНН" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label" for="kpp">КПП:</label>
+                            <input class="form" type="text" name="kpp" id="kpp" value="" placeholder="КПП" />
+                        </div>
+                    </div>
+                    <!--Кнопка загрузки данных по ИНН-->
+                    @*<div class="col-xs-12">
+                    <button type="submit" name="action" onclick="" class="btn red-btn btn-bg">Загрузить из ИНН</button>
+                </div>*@
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="ogrn">ОГРН:</label>
+                            <input class="form" type="text" name="ogrn" id="ogrn" value="" placeholder="ОГРН" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="DirectorFullName">Директор (ФИО)</label>
+                            <input class="form text-box single-line" id="DirectorFullName" name="DirectorFullName" placeholder="Директор (ФИО)" type="text" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="DirectorFullName" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="ContactName">Контактное лицо</label>
+                            <input class="form text-box single-line" id="ContactName" name="ContactName" placeholder="Контактное лицо" type="text" value="" />
+                            <span class="field-validation-valid text-danger" data-valmsg-for="ContactName" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="email">Ваш email*:</label>
+                            <input class="form" type="text" name="email" id="email" value="" placeholder="Например, info@pogrommist.ru" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="tel">Телефон для связи*:</label>
+                            <input class="form" type="text" name="tel" id="tel" value="" placeholder="Телефон для связи" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="url">Сайт:</label>
+                            <input class="form" type="text" name="url" id="url" value="" placeholder="Например, pogrommist.ru" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Actual_Street, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Actual_Street, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Actual_Street, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Legal_Street, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Legal_Street, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Legal_Street, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="bankDetailsEdit" class="tab-pane fade">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Bank_Bic, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Bank_Bic, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Bank_Bic, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Bank_Name, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Bank_Name, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Bank_Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Bank_Account, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Bank_Account, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Bank_Account, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Bank_Korrespondent, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Bank_Korrespondent, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Bank_Korrespondent, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="contractEdit" class="tab-pane fade">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NumberContract, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.NumberContract, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.NumberContract, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DateContract, htmlAttributes: new { @class = "control-label" })
+                            @{
+                                string dateContract = Model.DateContract == null ? string.Empty : ((DateTime)Model.DateContract).ToString("yyyy-MM-dd");
+                            }
+                            <input type="date" class="form text-box single-line" value="@dateContract" id="DateContract" name="DateContract" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="contractPref" class="tab-pane fade">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input id="userRoles" name="userRoles" type="hidden" value="null" />
+
+                        <br />
+                        @foreach (var UserRoles in ViewBag.UserRoles)
+                        {
+                            <input id="UserRoles-@UserRoles.Id" class="UserRole" type="checkbox" value="@UserRoles.Name" />
+
+                            <label for="UserRoles-@UserRoles.Id">
+                                <span></span>
+                                @UserRoles.Name
+                            </label>
+                            <br />
+                        }
+                    </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        <br />
+        <div class="form-group">
+            <div class="text-right">
+                <input type="submit" value="Сохранить" class="btn btn-orange-tta">
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/bootstrap-typeahead.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
+    <script src="~/Scripts/Accounts/Shared.js"></script>
+    @Scripts.Render("~/ScriptsValidate")
+
+    <link href="https://cdn.jsdelivr.net/jquery.suggestions/17.2/css/suggestions.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!--[if lt IE 10]>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.suggestions/17.2/js/jquery.suggestions.min.js"></script>
+    <script>
+        function join(arr) {
+            var separator = arguments.length > 1 ? arguments[1] : ", ";
+            return arr.filter(function (n) { return n }).join(separator);
+        }
+        function typeDescription(type) {
+            var TYPES = {
+                'INDIVIDUAL': 'Индивидуальный предприниматель',
+                'LEGAL': 'Организация'
+            }
+            return TYPES[type];
+        }
+        function showSuggestion(suggestion) {
+            console.log(suggestion);
+            var data = suggestion.data;
+            if (!data)
+                return;
+            $("#type").text(
+                typeDescription(data.type) + " (" + data.type + ")"
+            );
+            if (data.name)
+                //$("#company").val(join([data.opf && data.opf.short || "", data.name.short || data.name.full], " "));
+                $("#inn").val(data.inn);
+            $("#kpp").val(data.kpp);
+            $("#ogrn").val(data.ogrn);
+            $("#email").val(data.email);
+            if (data.address)
+                $("#address").val(data.address.value);
+        }
+        $("#company").suggestions({
+            token: "f761f5a7fd6a16cda8c2fc97d55ec240976c41be",
+            type: "PARTY",
+            count: 5,
+            onSelect: showSuggestion
+        });
+    </script>
+    <script>
+                function gettoken() {
+                var token = '@Html.AntiForgeryToken()';
+                token = $(token).val();
+                return token;
+        }
+
+                                        $(document).on('change', '.AccountRole', function () {
+                                                console.log(this.id);
+                                                var accId = @Model.Id;
+                                                var roleValue = $(this).val();
+
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: '@Url.Action("UpdateRole", "Accounts")',
+                                                    data: {
+                                                        accId: accId,
+                                                        roleValue: roleValue,
+                                                        __RequestVerificationToken: gettoken()
+
+                                                    },
+                                                    success: function (result) {
+                                                        //document.location.reload(true);
+                                                        console.log(result);
+                                                    }
+                                                    //,error: errorFunc
+                                                });
+                                        });
+    </script>
+}

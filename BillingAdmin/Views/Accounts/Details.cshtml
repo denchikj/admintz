@@ -1,0 +1,342 @@
+﻿@model BillingAdmin.Models.AccountsView.AccountsDetailsViewModel
+@{
+    ViewBag.Title = "Клиент - " + Model.ShortLegalName;
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">@Model.ShortLegalName</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Edit","Accounts",new { id = Model.Id })">Редактировать</a>
+            <a class="btn btn-grey-tta" href="@Url.Action("Index","Accounts")">Вернуться к списку</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <ul class="nav nav-tabs custom-tabs">
+        <li class="active"><a data-toggle="tab" href="#commonData">Общие данные</a></li>
+        <li><a data-toggle="tab" href="#contactData">Контактные данные</a></li>
+        <li><a data-toggle="tab" href="#bankDetails">Банковские реквизиты</a></li>
+        <li><a data-toggle="tab" href="#contract">Договор</a></li>
+        <li><a data-toggle="tab" href="#userList">Список пользователей</a></li>
+        <li><a data-toggle="tab" href="#projectList">Список проектов</a></li>
+    </ul>
+    <div class="tab-content panel-body custom-tabs-content">
+        <!--Общие данные-->
+        <div id="commonData" class="tab-pane fade in active">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.ShortLegalName)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.ShortLegalName)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.FullLegalName)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.FullLegalName)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.Inn)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.Inn)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.Kpp)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.Kpp)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.Ogrn)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.Ogrn)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.SiteAddress)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.SiteAddress)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.ActualStreet)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.ActualStreet)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.LegalStreet)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.LegalStreet)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end Общие данные-->
+        <!--Контактные данные-->
+        <div id="contactData" class="tab-pane fade">
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.DirectorFullName)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.DirectorFullName)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.PostDirector)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.PostDirector)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.Document)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.Document)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.ContactName)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.ContactName)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.Interaction)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.Interaction)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.Email)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.Email)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.Phone)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @{
+                            string phone = string.IsNullOrEmpty(Model.Phone) ? string.Empty : string.Format("{0:#(###) ###-##-##}", long.Parse(Model.Phone));
+                        }
+                        @phone
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end Контактные данные-->
+
+        <div id="bankDetails" class="tab-pane fade">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.BankBic)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.BankBic)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.BankName)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.BankName)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.BankAccount)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.BankAccount)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.BankKorrespondent)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.BankKorrespondent)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="contract" class="tab-pane fade">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.NumberContract)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @Html.DisplayFor(model => model.NumberContract)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>@Html.DisplayNameFor(model => model.DateContract)</label>
+                    </div>
+                    <div class="col-md-9 text-left">
+                        @{
+                            string dateContract = Model.DateContract == null ? string.Empty : ((DateTime)Model.DateContract).ToLongDateString();
+                        }
+                        @dateContract
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="userList" class="tab-pane fade">
+            @Html.ActionLink("Добавить пользователя", "CreateForAccount", "AspNetUsers", new { id = Model.Id }, new { @class = "btn btn-orange-tta btn-margin-tta" })
+            @Html.ActionLink("Привязать пользователя", "AttachToAccount", "AspNetUsers", new { Model.Id }, new { @class = "btn btn-orange-tta btn-margin-tta" })
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <tr class="text-center">
+                        <th>Id</th>
+                        <th>Имя пользователя</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => user.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => user.UserName)</td>
+                            <td>@Html.DisplayFor(modelItem => user.Email)</td>
+                            <td>
+                                @Html.ActionLink("Просмотр", "Details", "AspNetUsers", new { id = user.Id }, new { }) |
+                                @Html.ActionLink("Сменить пароль", "ResetPassword", "AspNetUsers", new { id = user.Id }, new { }) |
+                                @Html.ActionLink("Отвязать", "DetachUser", "AspNetUsers", new { id = user.Id, accountId = Model.Id }, new { }) 
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+        <div id="projectList" class="tab-pane fade">
+            @Html.ActionLink("Создать проект", "Create", "Projects", new { id = Model.Id }, new { @class = "btn btn-orange-tta btn-margin-tta" })
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Название</th>
+                        <th>Код OKTEL</th>
+                        <th>Тип проекта</th>
+                        <th>Дата создания</th>
+                        <th>Дата последнего редактирования</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var project in Model.Projects)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => project.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => project.OktelCode)</td>
+                            <td>@Html.DisplayFor(modelItem => project.TypeProject)</td>
+                            <td>@Html.DisplayFor(modelItem => project.CreateDate)</td>
+                            <td>@Html.DisplayFor(modelItem => project.LastEditDate)</td>
+                            <td>
+                                @Html.ActionLink("Просмотр", "Details", "Projects", new { id = project.Id }, new { })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            @Html.ActionLink("Удалить", "Delete", new { id = Model.Id }, new { @class = "btn btn-grey-tta" })
+        </div>
+    </div>
+</div>

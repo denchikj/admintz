@@ -1,0 +1,47 @@
+﻿@using BillingAdmin.Models.ProjectsView
+@model IEnumerable<StatisticForProjectViewModel>
+<div id="statisticOfProject">
+    @foreach (var statistic in Model)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                <label>@statistic.StatisticName</label>
+            </div>
+            <div class="col-md-3">
+                <input id="@statistic.IdSettings" type="checkbox" checked="@statistic.StatisticStatus"/>
+                <label for="@statistic.IdSettings"><span></span></label>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    window.onload = function () {
+        const projectId = $('#projectId').val();
+        $('#statisticOfProject').on('change',
+            'input[type=checkbox]',
+            function () {
+                const statisticEditModel = {
+                    ProjectId: projectId,
+                    PreferencesId: this.id,
+                    StatusStatistic: $(this).prop('checked')
+                };
+                $.ajax({
+                    url: "/Projects/EditStatistic",
+                    type: "POST",
+                    data: statisticEditModel,
+                    success: function () {
+                        alert("Успешно!");
+                    },
+                    error: function () {
+                        alert("Произошла ошибка!");
+                    }
+                });
+                //console.log(StatisticEditModel);
+                
+            });
+    }
+
+
+
+   
+</script>

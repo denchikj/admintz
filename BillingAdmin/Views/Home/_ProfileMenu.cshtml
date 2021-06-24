@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNet.Identity
+@model BillingAdmin.Models.menuMainProfile
+@*@{
+        int accountId = Model.accountId;
+        string accountName = Model.accountName;
+        string fullName = accountName;
+
+
+        if (accountName.Length > 9)
+        {
+            accountName = accountName.Substring(0, 9) + "...";
+        }
+
+    }*@
+@if (Model.accountId != 0)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken();
+    }
+    <div class="navbar-right navbar-autorization" style="margin-top: 5px;">
+        <button class="btn btn-sm red-btn profil-btn dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user profil-icon" aria-hidden="true">
+            </i>Мой профиль
+            <span class="fa fa-angle-down">
+            </span>
+        </button>
+        <ul class="styled dropdown-menu">
+            <li>
+                @Html.ActionLink("Кабинет", "Index", "Profile")
+            </li>
+            @*<li>
+                    @Html.ActionLink("Редактировать", "Edit", "Accounts", new { id = accountId }, new { id = accountId })
+                </li>
+                <li><a href="#">Настройки</a></li>
+                <li><a href="#">Помощь</a></li>*@ @*Заблокировано для релиза Статистика*@
+                <li>
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class="navbar-right navbar-autorization">
+            <button class="btn btn-sm red-btn login-btn" data-toggle="modal" data-target="#myModal2"><i class="hidden-lg fa fa-user" aria-hidden="true"></i>Войти</button>
+        </div>
+    }

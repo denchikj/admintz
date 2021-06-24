@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BillingAdmin.Models.Services>
+@{
+    ViewBag.Title = "Услуги";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="no-margin no-padding">Услуги</h3>
+        </div>
+        <div class="col-md-6 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Create","Services")">Добавить</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.name)</th>
+                    <th>@Html.DisplayNameFor(model => model.description)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr onclick="console.log(window.location.href = '@Url.Action("Details","Services",new { id = item.id })')" class="tr-clickable">
+                        <td>@Html.DisplayFor(modelItem => item.name)</td>
+                        <td>@Html.Raw(item.description)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

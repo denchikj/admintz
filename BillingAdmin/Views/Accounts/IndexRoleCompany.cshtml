@@ -1,0 +1,186 @@
+﻿@model IEnumerable<BillingAdmin.Models.AccountsView.AccountsIndexViewModel>
+@using BillingAdmin.Models
+
+@{
+    Entities db = new Entities();
+    ViewBag.Title = "Клиенты";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Клиенты</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Create","Accounts")">Добавить</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="table-responsive">
+        <table class="table table-striped" id="ResultTable">
+            <thead>
+                <tr>
+                    <th>
+                        Организация
+                    </th>
+                    <th>
+                        ИНН
+                    </th>
+                    <th>
+                        Директор
+                    </th>
+                    <th>
+                        Доверенное лицо
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Роль
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>@Html.DisplayNameFor(x => x.ShortLegalName)</td>
+
+                    <td>@Html.DisplayNameFor(x => x.INN)</td>
+
+                    <td>@Html.DisplayNameFor(x => x.DirectorFullName)</td>
+
+                    <td>@Html.DisplayNameFor(x => x.ContactName)</td>
+
+                    <td>@Html.DisplayNameFor(x => x.Email)</td>
+
+                    <td>
+                        @foreach (var UserRoles in ViewBag.Role)
+                        {
+                            @*<span>@ViewBag.Role</span>*@
+                            <select id="@UserRoles" class="form-control">
+                                <option value="@UserRoles">@UserRoles</option>
+                            </select>
+                        }
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Accounts/TableLoad.js"></script>
+
+    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet" />
+    <script>
+        function gettoken() {
+            var token = '@Html.AntiForgeryToken()';
+            token = $(token).val();
+            return token;
+        };
+        $(document).ready(function () {
+            var table = $('#ResultTable').DataTable(
+                {
+                    select: {
+                        style: 'multi'
+                        //selector: 'td:first-child'
+                    },
+                    "sPaginationType": "full_numbers",
+                    "serverSide": true,
+                    "language": {
+                        "decimal": "",
+                        "emptyTable": "Нет данных",
+                        "info": "Показано c _START_ по _END_ из _TOTAL_",
+                        "infoEmpty": "Показано c 0 по 0 из 0",
+                        "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "_MENU_",
+                        "loadingRecords": "Загрузка...",
+                        "processing": "В процессе...",
+                        "search": "",
+                        "searchPlaceholder": "Поиск в таблице",
+                        "zeroRecords": "Совпадений не найдено",
+                        "paginate": {
+                            "first": "Первая",
+                            "last": "Последняя",
+                            "next": "Следующая",
+                            "previous": "Предыдущая"
+                        },
+                        "aria": {
+                            "sortAscending": ": сортировка по возрастанию",
+                            "sortDescending": ": сортировка по убыванию"
+                        }
+                    },
+                    "columns": [
+                        {
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/Accounts/DetailsRoleCompany/' + full.Id + '">' + full.ShortLegalName +'</a>';
+                            }
+                        },
+                        {
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/Accounts/DetailsRoleCompany/' + full.Id + '">' + full.INN + '</a>';
+                            }
+                        },
+                        {
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/Accounts/DetailsRoleCompany/' + full.Id + '">' + full.DirectorFullName + '</a>';
+                            }
+                        },
+                        {
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/Accounts/DetailsRoleCompany/' + full.Id + '">' + full.ContactName + '</a>';
+                            }
+                        },
+                        {
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/Accounts/DetailsRoleCompany/' + full.Id + '">' + full.Email + '</a>';
+                            }
+                        }
+                    ],
+                    ajax: {
+                        type: "POST",
+                        dataType: "json",
+                        url: '@Url.Action("LoadClient", "Accounts")'
+                    },
+                    pageLength: 25,
+                    "lengthMenu": [[25, 50, 100], ["Показывать по 25", "Показывать по 50", "Показывать по 100"]]
+                }
+            );
+            table.buttons().container().appendTo($('#InsertButtons'));
+            $('.dataTables_filter input[type = "search"]').addClass('cv no-border');
+            $('.dataTables_length select').addClass('selectpicker no-back');
+            $('.dataTables_length select').selectpicker('refresh');
+            table.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    console.log('ye-ah');
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+        });
+    </script>
+
+}
+
+<style>
+    .dataTables_filter {
+        width: 70% !important;
+    }
+
+    .dataTables_length {
+        width: 30% !important;
+    }
+
+    .dataTables_filter input {
+        width: 62% !important;
+    }
+</style>

@@ -1,0 +1,14 @@
+﻿@using BillingAdmin.Models.ProjectsView
+@model IEnumerable<PreferenceOfServiceViewModel>
+
+<div id="preferenceService">
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <label class="control-label col-md-3" for="@item.PrefereceId">@item.PreferenceName</label>
+            <div class=" col-md-9">                
+                <input type="text" name="@item.PrefereceId" id="@item.PrefereceId" class="PreferenceOfService form" />
+            </div>
+        </div>
+    }
+</div>

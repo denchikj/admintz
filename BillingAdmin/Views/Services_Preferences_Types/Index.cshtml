@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BillingAdmin.Models.Services_Preferences_Types>
+
+@{
+    ViewBag.Title = "Перечень типов данных настроек услуг";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Перечень типов данных настроек услуг</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Create","Services_Preferences_Types")">Добавить</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.name)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.ActionLink("Просмотр", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Редактирование", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Удаление", "Delete", new { id = item.id })
+                </td>
+            </tr>
+}
+            </tbody>
+        </table>
+    </div>
+</div>

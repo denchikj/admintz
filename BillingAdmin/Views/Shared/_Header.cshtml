@@ -1,0 +1,83 @@
+﻿<header class="heade-tta">
+    <div class="navbar-tta no-padding">
+        <div class="container-fluid">
+            <div class="navbar-header-tta">
+                <div class="headr-block-tta">
+                    <a class="navbar-brand-tta" href="@Url.Action("Index","Accounts")">
+                        <img align="middle" src="~/Content/Images/logo-small.png" alt="TWINTEL ADMIN" height="18" width="18"/>
+                        &nbsp;TWINTEL ADMIN
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-collapse-tta">
+                <ul class="nav-tta navbar-nav-tta">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Работа с компаниями</a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Клиенты", "Index", "Accounts")</li>
+                                <li>@Html.ActionLink("Проекты", "Index", "Projects")</li>
+                                <li>@Html.ActionLink("Пользователи", "Index", "AspNetUsers")</li>
+                                @*<li>@Html.ActionLink("Роли компании", "IndexRole", "Accounts")</li>*@
+                                <li><hr /></li>
+                                <li>@Html.ActionLink("Услуги", "Index", "Services")</li>
+                                <li>@Html.ActionLink("Настройки услуг", "Index", "Services_Preferences")</li>
+                                <li>@Html.ActionLink("Настройки стоимости", "Index", "Services_Prices")</li>
+
+                                <li><hr /></li>
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#">Справочники</a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Перечень настроек услуг", "Index", "Services_Preferences_HB")</li>
+                                        <li>@Html.ActionLink("Перечень типов данных настроек услуг", "Index", "Services_Preferences_Types")</li>
+                                        <li>@Html.ActionLink("Тарифы", "Index", "Tarifs")</li>
+                                        <li>@Html.ActionLink("Тарифы - данные", "Index", "Tarifs_Data")</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Работа с сотрудниками</a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Список сотрудников", "IndexRoleAdmins", "AspNetUsers")</li>
+                                @*<li><hr /></li>*@
+                                @*<li>@Html.ActionLink("Список ролей", "IndexRole", "AspNetUsers")</li>*@
+                                <li>@Html.ActionLink("Логи пользователей", "Logs", "AspNetUsers")</li>
+                                @*<li>@Html.ActionLink("Список прав", "Index", "Services_Prices")</li>
+                    <li>@Html.ActionLink("Список ролей и прав", "Index", "Services_Prices")</li>*@
+                            </ul>
+                        </li>
+
+                        @*<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Работа с сайтом</a>
+                            <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Список сотрудников", "Index", "Services")</li>
+            <li><hr /></li>
+            <li>@Html.ActionLink("Список ролей", "Index", "Services_Preferences")</li>
+            <li>@Html.ActionLink("Список прав", "Index", "Services_Prices")</li>
+            <li>@Html.ActionLink("Список ролей и прав", "Index", "Services_Prices")</li>
+        </ul>
+                        </li>*@
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Колл центр</a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Статистика звонков", "Index", "Statistic_pbx")</li>
+                                <li>@Html.ActionLink("Графики звонков", "Charts", "Statistic_pbx")</li>
+                                <li><hr /></li>
+                                <li>@Html.ActionLink("Список сотрудников", "IndexRoleOperator", "AspNetUsers")</li>
+                                @*<li><hr /></li>
+                    <li>@Html.ActionLink("Список ролей", "Index", "Services_Preferences")</li>
+                    <li>@Html.ActionLink("Список прав", "Index", "Services_Prices")</li>
+                    <li>@Html.ActionLink("Список ролей и прав", "Index", "Services_Prices")</li>*@
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+</header>

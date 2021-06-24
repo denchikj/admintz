@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNet.Identity
+@model BillingAdmin.Models.menuMain
+@{
+    Dictionary<long, string> menuAccounts = Model.menuAccaunts;
+
+    long CurrAccount = 0;
+
+    string accountName;
+
+    if (Session["CurrentAccount"] != null)
+    {
+        CurrAccount = (int)Session["CurrentAccount"];
+        accountName = menuAccounts.Where(c => c.Key == CurrAccount).FirstOrDefault().Value.ToString().Substring(0, menuAccounts.Where(c => c.Key == CurrAccount).FirstOrDefault().Value.ToString().Length > 20 ? 20 : menuAccounts.Where(c => c.Key == CurrAccount).FirstOrDefault().Value.ToString().Length);
+
+    }
+    else
+    {
+        accountName = menuAccounts.OrderBy(c => c.Key).FirstOrDefault().Value.ToString().Substring(0, menuAccounts.OrderBy(c => c.Key).FirstOrDefault().Value.ToString().Length > 20 ? 20 : menuAccounts.OrderBy(c => c.Key).FirstOrDefault().Value.ToString().Length);
+        CurrAccount = menuAccounts.OrderBy(c => c.Key).FirstOrDefault().Key;
+
+        Session["CurrentAccount"] = (int)(CurrAccount % Int32.MaxValue);
+    }
+
+    string prop = "NoElement";
+
+
+    string menuac = menuAccounts.FirstOrDefault().Value.ToString().Substring(0, menuAccounts.FirstOrDefault().Value.ToString().Length > 20 ? 20 : menuAccounts.FirstOrDefault().Value.ToString().Length);
+    foreach (var str in menuAccounts)
+    {
+        if (str.Value.Contains(menuac) == true)
+        {
+            prop = str.Key.ToString();
+            break;
+        }
+    }
+
+}
+<div class="navbar-left navbar-phone dropdown dp">
+
+    <a id="accountMenu" href="@Url.Action("Edit", "Accounts", new { id = CurrAccount })">@accountName &nbsp;<b class="caret"></b></a>
+    <ul class="dropdown-menu account-select">
+        @foreach (var item in menuAccounts.Where(c => c.Key != CurrAccount).OrderBy(c => c.Key))
+        {
+            <li>@Html.ActionLink(item.Value, "Select", "Accounts", new { id = item.Key }, new { id = item.Key })</li>
+        }
+        @*<li><a href='@Url.Action("Create", "Accounts")'><i class="fa fa-plus"></i></a></li>*@
+    </ul>
+</div>
+
+<input type="hidden" value="@prop" id="PropNameCompany" />

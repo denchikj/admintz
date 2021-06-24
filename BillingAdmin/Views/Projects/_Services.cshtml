@@ -1,0 +1,19 @@
+﻿@using BillingAdmin.Models.ProjectsView
+@model IEnumerable<ServicesOfProjectViewModel>
+<div id="serviceOfProject">
+    @foreach (var service in Model)
+    {
+        var idPanel = Guid.NewGuid();
+        <a data-toggle="collapse" href="#@idPanel">@service.ServiceName</a>
+        <div class="col-md-offset-1 panel-collapse collapse" id="@idPanel">
+            @foreach (var item in service.Preferences)
+            {
+                <div style="font-size:13px;color:#808080" class="row">
+                    <div class="col-md-3">@item.PreferenceName</div>
+                    <div class="col-md-3">@item.PreferenceValue</div>
+                </div>
+            }
+        </div>
+        <div style="margin-bottom:10px"></div>
+    }
+</div>

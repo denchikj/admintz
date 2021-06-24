@@ -1,0 +1,134 @@
+﻿@model BillingAdmin.Models.Accounts
+
+@{
+    ViewBag.Title = "DetailsAdminRole";
+}
+
+
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">@Model.ShortLegalName</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Edit","AspNetUsers",new { id = Model.Id })">Редактировать</a>
+            <a class="btn btn-orange-tta" href="@Url.Action("ResetPassword","AspNetUsers",new { id = Model.Id })">Сменить пароль</a>
+            <a class="btn btn-grey-tta" href="@Url.Action("Index","AspNetUsers")">Вернуться к списку</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Id)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Id)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.ShortLegalName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.ShortLegalName)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.INN)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.INN)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.DirectorFullName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.DirectorFullName)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.ContactName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.ContactName)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Email)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Email)
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="line"></div>
+    <br />
+    @*<div class="row">
+            <div class="col-md-12">
+                <label>Список клиентов к которым прикреплен пользователь @Model.UserName</label>
+            </div>
+        </div>
+        <br />
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Сокращенное название</th>
+                    <th>Полное название</th>
+                    <th>ИНН</th>
+                    <th>КПП</th>
+                    <th>Директор (ФИО)</th>
+                    <th>Контактное лицо</th>
+                    <th>Email адрес</th>
+                    <th>Телефон</th>
+                </tr>
+                @foreach (var account in Model.Id)
+                {
+                    <tr>
+                        <td><a href="@Url.Action("Details","Accounts",new { id =  account.Id })">@Html.DisplayFor(modelItem => account.ShortLegalName)</a></td>
+                        <td>@Html.DisplayFor(modelItem => account.FullLegalName)</td>
+                        <td>@Html.DisplayFor(modelItem => account.INN)</td>
+                        <td>@Html.DisplayFor(modelItem => account.KPP)</td>
+                        <td>@Html.DisplayFor(modelItem => account.DirectorFullName)</td>
+                        <td>@Html.DisplayFor(modelItem => account.ContactName)</td>
+                        <td>@Html.DisplayFor(modelItem => account.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => account.Phone)</td>
+                    </tr>
+                }
+            </table>
+        </div>*@
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <p>
+                <a class="btn btn-grey-tta" href="@Url.Action("Delete","AspNetUsers",new { id = Model.Id })">Удалить</a>
+            </p>
+        </div>
+    </div>
+</div>
+

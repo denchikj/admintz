@@ -1,0 +1,80 @@
+﻿@model BillingAdmin.Models.ProjectsView.ProjectsCreateViewModel
+@{
+    ViewBag.Title = "Добавление проекта";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">@Model.AccountName<br />Новый проект</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-grey-tta" href=" @Url.Action("Details","Accounts",new {id=Model.AccountId })">Обратно в @Model.AccountName</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <form id="project" method="post" action="/Projects/Create">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <fieldset>
+            <legend>Общие данные</legend>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "NewProject form" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.OktelCode, htmlAttributes: new { @class = "control-label" })
+                        <input type="text" name="OktelCode" class="OnlyLatin form text-box single-line" />
+                        @Html.ValidationMessageFor(model => model.OktelCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TypeProjectId, htmlAttributes: new { @class = "control-label" })
+
+                        <select class="form" id="TypeProjectId" name="TypeProjectId">
+                            @foreach (var item in Model.TypesProject)
+                            {
+                                <option value="@item.Id">@item.Disciption</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" value="@Model.AccountId" class="NewProject" name="AccountId" />
+            <input type="hidden" value="@Model.AccountName" class="NewProject" name="AccountName" />
+        </fieldset>
+        <fieldset>
+            <legend>Список статистикик для подключения к проекту</legend>
+            @foreach (var statistic in Model.Statistic)
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>@statistic.StatisticName</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="Statistic" id="@statistic.IdSettings" name="@statistic.IdSettings" type="checkbox" />
+                        <label for="@statistic.IdSettings"><span></span></label>
+                    </div>
+                </div>
+            }
+        </fieldset>
+        <div class="form-group">
+            <div class="col-md-12 text-right">
+                <input type="submit" value="Сохранить" class="btn btn-orange-tta" id="save" />
+            </div>
+        </div>
+    </form>
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/ScriptsValidate")
+    <script src="~/Scripts/Shared/OnlyLatin.js"></script>
+    <script src="~/Scripts/Projects/Create.js"></script>
+}

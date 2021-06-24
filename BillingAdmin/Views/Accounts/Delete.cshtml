@@ -1,0 +1,228 @@
+﻿@model BillingAdmin.Models.AccountsView.AccountsDetailsViewModel
+@{
+    ViewBag.Title = "Удаление - " + Model.ShortLegalName;
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Вы уверены, что хотите удалить клиента?</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            @Html.ActionLink("Отмена", "Details", new { Model.Id }, new { @class = "btn btn-orange-tta" })
+            @Html.ActionLink("В список клиентов", "Index", new { }, new { @class = "btn btn-grey-tta" })
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.ShortLegalName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.ShortLegalName)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.FullLegalName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.FullLegalName)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Inn)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Inn)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Kpp)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Kpp)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.DirectorFullName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.DirectorFullName)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.ContactName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.ContactName)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Email)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Email)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Phone)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Phone)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.SiteAddress)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.SiteAddress)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.ActualStreet)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.ActualStreet)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.LegalStreet)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.LegalStreet)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.BankBic)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.BankBic)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.BankName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.BankName)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.BankAccount)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.BankAccount)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.BankKorrespondent)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.BankKorrespondent)
+            </div>
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label>@Html.DisplayNameFor(model => model.ClientGuid)</label>
+                </div>
+                <div class="col-md-9 text-left">
+                    @Html.DisplayFor(model => model.ClientGuid)
+                </div>
+            </div>
+        </div>*@
+    <hr />
+    <label>Список пользователей @Model.ShortLegalName</label>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Имя пользователя</th>
+            <th>Email</th>
+        </tr>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => user.Id)</td>
+                <td>@Html.DisplayFor(modelItem => user.UserName)</td>
+                <td>@Html.DisplayFor(modelItem => user.Email)</td>
+            </tr>
+        }
+    </table>
+    <hr />
+    <label>Список проектов @Model.ShortLegalName</label>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Название</th>
+            <th>Код OKTEL</th>
+            <th>Дата создания</th>
+            <th>Дата последнего редактирования</th>
+        </tr>
+        @foreach (var project in Model.Projects)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => project.Name)</td>
+                <td>@Html.DisplayFor(modelItem => project.OktelCode)</td>
+                <td>@Html.DisplayFor(modelItem => project.CreateDate)</td>
+                <td>@Html.DisplayFor(modelItem => project.LastEditDate)</td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-actions no-color">
+                    <input type="submit" value="Подтвердить удаление" class="btn btn-grey-tta" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

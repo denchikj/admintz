@@ -1,0 +1,338 @@
+﻿@model BillingAdmin.Models.Accounts
+@{
+    ViewBag.Title = "Добавление клиента";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Новый клиент</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-grey-tta" href="@Url.Action("Index","Accounts")">В список клиентов</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <ul class="nav nav-tabs custom-tabs">
+            <li class="active"><a data-toggle="tab" href="#commonDataCreate">Общие данные</a></li>
+            <li><a data-toggle="tab" href="#contactData">Контактные данные</a></li>
+            <li><a data-toggle="tab" href="#bankDetailsCreate">Банковские реквизиты</a></li>
+            <li><a data-toggle="tab" href="#contractCreate">Договор</a></li>
+        </ul>
+        <div class="tab-content panel-body custom-tabs-content" id="custom-data">
+            <!--Общие данные-->
+            <div id="commonDataCreate" class="tab-pane fade in active">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ShortLegalName, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.ShortLegalName, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.ShortLegalName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FullLegalName, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.FullLegalName, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.FullLegalName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.INN, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.INN, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.INN, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <!--Кнопка загрузки данных по ИНН-->
+                    <div class="col-xs-12">
+                        <button type="button" onclick="uploadINN()" class="btn red-btn btn-bg">Загрузить из ИНН</button>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.KPP, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.KPP, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.KPP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Ogrn, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Ogrn, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Ogrn, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Actual_Street, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Actual_Street, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Actual_Street, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Legal_Street, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Legal_Street, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Legal_Street, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Site, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Site, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Site, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end Общие данные-->
+            <!--Контактные данные-->
+            <div id="contactData" class="tab-pane fade">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DirectorFullName, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.DirectorFullName, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.DirectorFullName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PostDirector, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.PostDirector, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.PostDirector, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Document, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Document, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Document, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ContactName, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.ContactName, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.ContactName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form", @placeholder = "8(999) 999-999-99" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Interaction, htmlAttributes: new { @class = "control-label" })
+                            <textarea id="Interaction" name="Interaction" class="form"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end Контактные данные-->
+
+            <div id="bankDetailsCreate" class="tab-pane fade">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Bank_Bic, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Bank_Bic, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Bank_Bic, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Bank_Name, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Bank_Name, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Bank_Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Bank_Account, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Bank_Account, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Bank_Account, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Bank_Korrespondent, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Bank_Korrespondent, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.Bank_Korrespondent, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="contractCreate" class="tab-pane fade">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NumberContract, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.NumberContract, new { htmlAttributes = new { @class = "form" } })
+                            @Html.ValidationMessageFor(model => model.NumberContract, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DateContract, htmlAttributes: new { @class = "control-label" })
+                            <input type="date" class="form @*text-box single-line*@" value="" id="DateContract" name="DateContract" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="text-right">
+                <input type="submit" value="Сохранить" class="btn btn-orange-tta">
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="~/Scripts/Accounts/Shared.js"></script>
+    @Scripts.Render("~/ScriptsValidate")
+<script>
+    $(document).on('change', '#INN',  function () {
+           //alert('ок');
+            $.ajax({
+                url: '@Url.Action("UploadINN", "Accounts")',
+                data: {
+                    innCompany: document.getElementById('INN').value
+                },
+                //dataType: "json",
+                type: "Post",
+                //contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $('#custom-data').html(data);
+
+                },
+                error: function (response) {
+                    alert('Не удалось загрузить данные по ИНН');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
+
+          //  document.getElementById('ShortLegalName').value = ShortLegalName
+
+    });
+</script>
+    <script>
+        function uploadINN() {
+            //alert('ок');
+            $.ajax({
+                url: '@Url.Action("UploadINN", "Accounts")',
+                data: {
+                    innCompany: document.getElementById('INN').value
+                },
+                //dataType: "json",
+                type: "Post",
+                //contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $('#custom-data').html(data);
+
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
+
+          //  document.getElementById('ShortLegalName').value = ShortLegalName
+        }
+    </script>
+    <script>
+
+        function uploadINN_old(innCompany) {
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UploadINN", "Accounts")',
+                dataType: 'json',
+                data: {
+                    innCompany: innCompany,
+                    //__RequestVerificationToken: gettoken()
+
+                },
+                success: function (result) {
+                    Jsonresult
+                    //$('#custom-data').load(result);
+                }
+                //,error: errorFunc
+            });
+        }
+
+    </script>
+
+
+    @*<script>
+            $(function () {
+                $("#Users").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '/AspNetUsers/GetUserList/',
+                            data: { term: request.term },
+                            dataType: "json",
+                            type: "Get",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.UserName, value: item.Id };
+                                }))
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            }
+                        });
+                    },
+                    minLength: 1,
+                    select: function (e, i) {
+                        e.preventDefault();
+                        $("#Id").val(i.item.value);
+                        $("#Users").val(i.item.label);
+                    }
+                });
+            });
+        </script>*@
+}

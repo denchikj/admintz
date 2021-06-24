@@ -1,0 +1,68 @@
+﻿@{
+    //ViewBag.Title = "Index";
+}
+
+<div class="side-title">Помощь по текущей странице</div>
+<div id="helpCurrentPage">
+
+    Данные не загружены
+</div>
+
+<div class="side-title">Все разделы</div>
+<div id="helpAll">
+    Данные не загружены
+</div>
+<script>
+
+</script>
+<style>
+    .accordion-group {
+        margin: 16px 0;
+    }
+
+    .accordion-body {
+        display: none;
+        padding: 14px 20px;
+        background: #FFF;
+        border-radius: 5px;
+        margin: 8px 0;
+        border: 2px solid #BFE2FF;
+    }
+
+        .accordion-body > * > .accordion-body {
+            background: #FFF;
+            margin: 0;
+        }
+
+    .accordion-header {
+        background: #ff5800; /*#BFE2FF;*/
+        margin: 8px 0;
+        color: #000;
+        padding: 8px 40px 8px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        position: relative;
+    }
+
+        .accordion-header::after {
+            content: "+";
+            right: 16px;
+            font-family: Courier;
+            font-size: 28px;
+            line-height: 28px;
+            font-weight: bold;
+            color: #000;
+            position: absolute;
+        }
+
+        .accordion-header.open {
+            background: #ff5800; /*#337AB7;*/
+            color: #fff;
+            font-weight: bold
+        }
+
+            .accordion-header.open::after {
+                content: "-";
+                color: #FFF;
+            }
+</style>

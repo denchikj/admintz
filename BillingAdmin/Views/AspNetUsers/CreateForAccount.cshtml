@@ -1,0 +1,161 @@
+﻿@model BillingAdmin.Models.UsersView.UserCreateForAccountViewModel
+@{
+    ViewBag.Title = "Добавление пользователя клиенту" + Model.AccountName;
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Добавление пользователя клиенту<br />@Model.AccountName</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-grey-tta" href="@Url.Action("Details","Accounts", new { id = Model.AccountId })">Обратно в @Model.AccountName</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="form-horizontal">
+            @using (Html.BeginForm("CreateForAccount", "AspNetUsers"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Фамилия</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="lastName" name="lastName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Имя</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="firstName" name="firstName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Отчество</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" id="midName" name="midName" />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        <div class="password">
+                            @Html.PasswordFor(model => model.Password, new { @class = "form", @Value = ViewBag.GeneratePassword })
+                            <a href="#" class="password-control"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Отправить пароль на почту", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        <input id="emailsend" name="emailsend" class="checkbox" type="checkbox"
+                               style="display: block !important;
+                        cursor: pointer;
+                        display: inline-block;
+                        width: 18px;
+                        height: 19px;
+                        margin-right: 9px;
+                        margin-top: 6px;
+                        vertical-align: middle;"
+                               value="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        <div class="password">
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form", @Value = ViewBag.GeneratePassword })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RoleId, "Роль пользователя", htmlAttributes: new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        @*<input id="userRoles" name="userRoles" type="hidden" value="null" />*@
+                        @Html.DropDownList("RoleId", null, "--Выбрать роль--", htmlAttributes: new { @class = "form" })
+
+                        <br />
+                        @*@foreach (var UserRoles in ViewBag.UserRoles as List<BillingAdmin.Models.AspNetRoles>)
+                        {
+                            <input id="UserRoles-@UserRoles.Id" class="UserRole" type="checkbox" value="@UserRoles.Name" />
+
+                            <label for="UserRoles-@UserRoles.Id">
+                                <span></span>
+                                @UserRoles.Name
+                            </label>
+                            <br />
+                        }*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form" })
+                    </div>
+                </div>
+
+                <input type="hidden" name="AccountId" value="@Model.AccountId" />
+                <input type="hidden" name="AccountName" value="@Model.AccountName" />
+
+                <div class="form-group">
+                    <div class="col-md-8 text-right">
+                        <input type="submit" value="Добавить" class="btn btn-orange-tta" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+    <style>
+        .password {
+            position: relative;
+        }
+
+        .password-control {
+            position: absolute;
+            top: 11px;
+            right: 6px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: url('/Content/Images/view-password.svg') 0 0 no-repeat;
+        }
+
+            .password-control.view {
+                background: url('/Content/Images/no-view-password.svg') 0 0 no-repeat;
+            }
+    </style>
+    @section Scripts {
+        @Scripts.Render("~/ScriptsValidate")
+
+        <script>
+        $('body').on('click', '.password-control', function () {
+            if ($('#Password').attr('type') == 'password') {
+                $(this).addClass('view');
+                $('#Password').attr('type', 'text');
+                $('#ConfirmPassword').attr('type', 'text');
+            } else {
+                $(this).removeClass('view');
+                $('#Password').attr('type', 'password');
+                  $('#ConfirmPassword').attr('type', 'password');
+            }
+            return false;
+        });
+        </script>
+    }

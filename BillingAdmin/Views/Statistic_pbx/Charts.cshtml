@@ -1,0 +1,73 @@
+﻿@using BillingAdmin.Models
+
+@{
+    ViewBag.Title = "Index";
+    BillingAdmin.Models.Entities db = new BillingAdmin.Models.Entities();
+
+
+    IQueryable<Projects> proj = db.Projects.Where(c => c.oktellCode.Trim().Length > 5 && c.oktellCode != "334145-33" && c.oktellCode != "334164-33");
+
+    var chartData = "";
+
+    foreach (var item in Model)
+    {
+        chartData = chartData + " { y: " + item + ", label: \"" + item + "\" },";
+    };
+}
+<style>
+    td {
+        vertical-align: middle !important;
+        text-align: center !important;
+    }
+</style>
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8" style="width: 100%;text-align: center;">
+            <h3 class="no-margin no-padding" style="display: inline-block;float: left;">Статистика</h3>
+
+            <span style="font-size:large">@ViewBag.ProjectName</span>
+            <div class="dropdown" id="nesting-dropdown-demo" style="display: inline-block;float: right;">
+                <button type="button" class="btn btn-default dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false">Выберите проект</button>
+                <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
+                    @foreach (var item in proj)
+                    {
+                        <a class="dropdown-item" href="@Url.Action("getChartByProject", new { proj = item.oktellCode})">@item.name</a><br />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+
+<div class="white-block">
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+</div>
+
+@section Scripts{
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script>
+            window.onload = function () {
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    theme: "light2", // "light1", "light2", "dark1", "dark2"
+                    title: {
+                        text: "Количество минут по дням"
+                    },
+                    axisY: {
+                        title: "Работа специалистов (Минуты)"
+                    },
+                    data: [{
+                        type: "column",
+                        showInLegend: true,
+                        legendMarkerColor: "grey",
+                        legendText: "День месяца",
+                        dataPoints: [
+                            @Html.Raw(chartData)
+                        ]
+                    }]
+                });
+                chart.render();
+            }
+    </script>
+}

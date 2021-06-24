@@ -1,0 +1,63 @@
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.Owin
+@{
+    string userId = User.Identity.GetUserId();
+
+    IList<string> roles = null;
+
+    if (userId != null)
+    {
+        ApplicationUserManager UserManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        roles = UserManager.GetRoles(userId);
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+    @*<link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">*@
+    <link href="~/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" /><!-- end Fonts -->
+
+    @Styles.Render("~/StylesLibrary")
+    <link rel="stylesheet" href="~/Content/datatable.buttons/datatables.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap-select.css" />
+    @Styles.Render("~/StylesShared")
+</head>
+<body>
+    @{if (Request.Headers["44d9dbb60b6c2c24922cd62d249412f9"] == null)
+        {
+            //if (roles.Contains("Admin"))
+            //{
+            Html.RenderPartial("_Header");
+            //}
+    }
+    }
+    <div class="services">
+        <div class="container-fluid questionnaire">
+            <div class="margin-y">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @{if (Request.Headers["44d9dbb60b6c2c24922cd62d249412f9"] == null)
+        {
+            Html.RenderPartial("_Footer");
+        }
+    }
+    @Scripts.Render("~/ScriptsLibrary")
+    <script src="~/Scripts/jquery/jquery.hotkeys.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap-wysiwyg.js"></script>
+    <script src="~/Scripts/Datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/Datatable/datatable.buttons/datatables.min.js"></script>
+    <script src="~/Scripts/Datatable/datatable.rowgroup/dataTables.rowGroup.min.js"></script>
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

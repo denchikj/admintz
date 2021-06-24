@@ -1,0 +1,57 @@
+﻿@model IEnumerable<BillingAdmin.Models.Tarifs_Data>
+
+@{
+    ViewBag.Title = "Тарифы - данные";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Тарифы - данные</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            <a class="btn btn-orange-tta" href="@Url.Action("Create","Tarifs_Data")">Добавить</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.value)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.count)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tarifs.name)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.value)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.count)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tarifs.name)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Просмотр", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Редактирование", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Удаление", "Delete", new { id = item.id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+﻿@model BillingAdmin.Models.Tarifs
+
+@{
+    ViewBag.Title = "Удаление";
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Вы уверены, что хотите удалить тариф?</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            @Html.ActionLink("Отмена", "Details", new { Model.id }, new { @class = "btn btn-orange-tta" })
+            <a class="btn btn-grey-tta" href="@Url.Action("Index","Tarifs")">В список тарифов</a>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.name)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.name)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.date_create)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.date_create)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-actions no-color">
+                    <input type="submit" value="Подтвердить удаление" class="btn btn-grey-tta" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

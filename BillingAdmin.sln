@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30225.117
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingAdmin", "BillingAdmin\BillingAdmin.csproj", "{78385E32-68F0-42F9-ACA4-6A114C29148F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendPulse.API", "SendPulse.API\SendPulse.API.csproj", "{97599302-BA53-4E2E-98F5-BC51F67F3049}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78385E32-68F0-42F9-ACA4-6A114C29148F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78385E32-68F0-42F9-ACA4-6A114C29148F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78385E32-68F0-42F9-ACA4-6A114C29148F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78385E32-68F0-42F9-ACA4-6A114C29148F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97599302-BA53-4E2E-98F5-BC51F67F3049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97599302-BA53-4E2E-98F5-BC51F67F3049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97599302-BA53-4E2E-98F5-BC51F67F3049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97599302-BA53-4E2E-98F5-BC51F67F3049}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {5DCE60CC-C12B-46E6-A2FC-D48A2988E152}
+	EndGlobalSection
+EndGlobal

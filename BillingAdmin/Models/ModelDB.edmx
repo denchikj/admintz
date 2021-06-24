@@ -1,0 +1,2476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище u436263_newlkModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="100tx_Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="account" Type="bigint" Nullable="false" />
+          <Property Name="specification" Type="bigint" />
+          <Property Name="dateadd" Type="smalldatetime" />
+          <Property Name="plan_purchase" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" />
+          <Property Name="markup" Type="int" />
+          <Property Name="creatorAccount" Type="bigint" />
+          <Property Name="comment" Type="nvarchar(max)" />
+          <Property Name="sum" Type="bigint" />
+          <Property Name="stage" Type="nvarchar" MaxLength="128" />
+          <Property Name="term_stage" Type="smalldatetime" />
+          <Property Name="date_stage" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="100tx_OrdersStatuses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="color" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="100tx_OrdersStatusHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="spec_id" Type="bigint" Nullable="false" />
+          <Property Name="prov_id" Type="bigint" Nullable="false" />
+          <Property Name="status_id" Type="int" Nullable="false" />
+          <Property Name="date" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShortLegalName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="FullLegalName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="INN" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="DirectorFullName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" />
+          <Property Name="Site" Type="nvarchar(max)" />
+          <Property Name="Industry" Type="int" />
+          <Property Name="Actual_Street" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Legal_Street" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Bank_Bic" Type="nchar" MaxLength="9" />
+          <Property Name="Bank_Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Bank_Account" Type="nchar" MaxLength="20" />
+          <Property Name="Bank_Korrespondent" Type="nchar" MaxLength="20" />
+          <Property Name="KPP" Type="nvarchar" MaxLength="20" />
+          <Property Name="ClientGuid" Type="uniqueidentifier" />
+          <Property Name="NumberContract" Type="nvarchar(max)" />
+          <Property Name="DateContract" Type="date" />
+          <Property Name="Guid" Type="uniqueidentifier" />
+          <Property Name="Ogrn" Type="nvarchar" MaxLength="15" />
+          <Property Name="PostDirector" Type="nvarchar" MaxLength="128" />
+          <Property Name="PostContact" Type="nvarchar" MaxLength="128" />
+          <Property Name="Document" Type="nvarchar" MaxLength="128" />
+          <Property Name="Interaction" Type="nvarchar" MaxLength="128" />
+          <Property Name="dateadd" Type="smalldatetime" />
+          <Property Name="NDS_YES" Type="bit" />
+          <Property Name="NDS_NO" Type="bit" />
+          <Property Name="ZAKUPKI_YES" Type="bit" />
+          <Property Name="ZAKUPKI_NO" Type="bit" />
+          <Property Name="SKLAD_ADDRESS" Type="nvarchar" MaxLength="1000" />
+          <Property Name="KPTextBlock" Type="nvarchar(max)" />
+          <Property Name="Currency" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Accounts_Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Account" Type="bigint" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Accounts_RolesHB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Accounts_Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="accountId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRolesMenus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MenuId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="smalldatetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="logType" Type="int" Nullable="false" />
+          <Property Name="accountId" Type="bigint" Nullable="false" />
+          <Property Name="content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="date" Type="smalldatetime" Nullable="false" />
+          <Property Name="userId" Type="nvarchar" MaxLength="128" />
+          <Property Name="json" Type="nvarchar(max)" />
+          <Property Name="actionId" Type="int" />
+          <Property Name="typetable" Type="int" />
+          <Property Name="idtable" Type="int" />
+          <Property Name="datetime" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Logs_Messages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="logId" Type="bigint" Nullable="false" />
+          <Property Name="messageId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="messagesCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logs_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="text" Type="nvarchar" MaxLength="100" />
+          <Property Name="action" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Price_TypesHB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PrjPreferences">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="typedata_id" Type="int" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="parent_id" Type="int" />
+          <Property Name="position_id" Type="int" />
+          <Property Name="setting_id" Type="int" />
+          <Property Name="display_order" Type="int" />
+        </EntityType>
+        <EntityType Name="PrjSettings_Data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projects_id" Type="int" />
+          <Property Name="preferences_id" Type="int" />
+          <Property Name="value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="accountId" Type="bigint" Nullable="false" />
+          <Property Name="oktellCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="guid" Type="nvarchar(max)" />
+          <Property Name="date_create" Type="datetime" />
+          <Property Name="date_last_edit" Type="datetime" />
+          <Property Name="TypeId" Type="uniqueidentifier" />
+          <Property Name="creatorId" Type="nvarchar" MaxLength="128" />
+          <Property Name="ownerId" Type="nvarchar" MaxLength="128" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="statusesId" Type="int" Nullable="false" />
+          <Property Name="isExternal" Type="bit" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
+          <Property Name="endDate" Type="datetime" Nullable="false" />
+          <Property Name="startDate" Type="datetime" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
+          <Property Name="avatar" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Projects_Services">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projectId" Type="int" Nullable="false" />
+          <Property Name="serviceId" Type="int" Nullable="false" />
+          <Property Name="value" Type="int" />
+        </EntityType>
+        <EntityType Name="ProjectTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Disciption" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Services_Data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="project_serviceId" Type="int" />
+          <Property Name="preferenceId" Type="int" />
+          <Property Name="preferenceValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Services_Preferences">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="serviceid" Type="int" Nullable="false" />
+          <Property Name="preferenceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Services_Preferences_HB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="typeId" Type="int" Nullable="false" />
+          <Property Name="readOnly" Type="bit" />
+        </EntityType>
+        <EntityType Name="Services_Preferences_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Services_Prices">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="serviceId" Type="int" Nullable="false" />
+          <Property Name="priceTypesId" Type="int" Nullable="false" />
+          <Property Name="tarifId" Type="int" />
+          <Property Name="preferenceId" Type="int" />
+          <Property Name="value" Type="int" />
+          <Property Name="date_create" Type="smalldatetime" />
+          <Property Name="date_start" Type="smalldatetime" />
+          <Property Name="date_stop" Type="smalldatetime" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "u436263_100tztest2.dbo.Statistic_pbx" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Statistic_pbx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="UNIQUEID" Type="nvarchar" MaxLength="250" />
+          <Property Name="start" Type="smalldatetime" />
+          <Property Name="answer" Type="smalldatetime" />
+          <Property Name="endtime" Type="smalldatetime" />
+          <Property Name="src_chan" Type="nvarchar" MaxLength="250" />
+          <Property Name="src_num" Type="nvarchar" MaxLength="250" />
+          <Property Name="dst_chan" Type="nvarchar" MaxLength="250" />
+          <Property Name="dst_num" Type="nvarchar" MaxLength="250" />
+          <Property Name="linkedid" Type="nvarchar" MaxLength="250" />
+          <Property Name="did" Type="nvarchar" MaxLength="250" />
+          <Property Name="disposition" Type="nvarchar" MaxLength="250" />
+          <Property Name="recordingfile" Type="nvarchar" MaxLength="250" />
+          <Property Name="from_account" Type="nvarchar" MaxLength="250" />
+          <Property Name="to_account" Type="nvarchar" MaxLength="250" />
+          <Property Name="dialstatus" Type="nvarchar" MaxLength="250" />
+          <Property Name="appname" Type="nvarchar" MaxLength="250" />
+          <Property Name="transfer" Type="nvarchar" MaxLength="250" />
+          <Property Name="is_app" Type="nvarchar" MaxLength="250" />
+          <Property Name="duration" Type="int" />
+          <Property Name="billsec" Type="int" />
+          <Property Name="work_completed" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="StatisticLeftMenu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="display_order" Type="int" />
+          <Property Name="project_setting_id" Type="int" />
+          <Property Name="action_name" Type="nvarchar(max)" />
+          <Property Name="icon_name" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "u436263_100tztest2.dbo.StatusSign" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="StatusSign">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="document_templates_id" Type="int" />
+          <Property Name="date" Type="date" />
+          <Property Name="account_id" Type="bigint" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Tarifs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="date_create" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Tarifs_Data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
+          <Property Name="count" Type="int" Nullable="false" />
+          <Property Name="tarifId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_100tx_Orders_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="100tx_Orders" Type="Self.100tx_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="100tx_Orders">
+              <PropertyRef Name="account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_100tx_OrdersStatusHistory_100tx_OrdersStatuses">
+          <End Role="100tx_OrdersStatuses" Type="Self.100tx_OrdersStatuses" Multiplicity="1" />
+          <End Role="100tx_OrdersStatusHistory" Type="Self.100tx_OrdersStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="100tx_OrdersStatuses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="100tx_OrdersStatusHistory">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Roles_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Accounts_Roles" Type="Self.Accounts_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts_Roles">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Roles_Accounts_RolesHB">
+          <End Role="Accounts_RolesHB" Type="Self.Accounts_RolesHB" Multiplicity="1" />
+          <End Role="Accounts_Roles" Type="Self.Accounts_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts_RolesHB">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts_Roles">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Users_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Accounts_Users" Type="Self.Accounts_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts_Users">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Users_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Accounts_Users" Type="Self.Accounts_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts_Users">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetRolesMenus_AspNetRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="AspNetRolesMenus" Type="Self.AspNetRolesMenus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRolesMenus">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserLogins_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_Logs_Types">
+          <End Role="Logs_Types" Type="Self.Logs_Types" Multiplicity="1" />
+          <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logs_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="logType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_Messages_Logs">
+          <End Role="Logs" Type="Self.Logs" Multiplicity="1" />
+          <End Role="Logs_Messages" Type="Self.Logs_Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Logs_Messages">
+              <PropertyRef Name="logId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjPreferences_PrjPreferences">
+          <End Role="PrjPreferences" Type="Self.PrjPreferences" Multiplicity="0..1" />
+          <End Role="PrjPreferences1" Type="Self.PrjPreferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjPreferences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PrjPreferences1">
+              <PropertyRef Name="parent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjSettings_Data_PrjPreferences">
+          <End Role="PrjPreferences" Type="Self.PrjPreferences" Multiplicity="0..1" />
+          <End Role="PrjSettings_Data" Type="Self.PrjSettings_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjPreferences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PrjSettings_Data">
+              <PropertyRef Name="preferences_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjSettings_Data_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1" />
+          <End Role="PrjSettings_Data" Type="Self.PrjSettings_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PrjSettings_Data">
+              <PropertyRef Name="projects_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="creatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ownerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_ProjectTypes">
+          <End Role="ProjectTypes" Type="Self.ProjectTypes" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Services_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="Projects_Services" Type="Self.Projects_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Projects_Services">
+              <PropertyRef Name="projectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Services_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="Projects_Services" Type="Self.Projects_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Projects_Services">
+              <PropertyRef Name="serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Data_Projects_Services">
+          <End Role="Projects_Services" Type="Self.Projects_Services" Multiplicity="0..1" />
+          <End Role="Services_Data" Type="Self.Services_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects_Services">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Data">
+              <PropertyRef Name="project_serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Data_Services_Preferences_HB">
+          <End Role="Services_Preferences_HB" Type="Self.Services_Preferences_HB" Multiplicity="0..1" />
+          <End Role="Services_Data" Type="Self.Services_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_Preferences_HB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Data">
+              <PropertyRef Name="preferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Preferences_HB_Services_Preferences_Types">
+          <End Role="Services_Preferences_Types" Type="Self.Services_Preferences_Types" Multiplicity="1" />
+          <End Role="Services_Preferences_HB" Type="Self.Services_Preferences_HB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_Preferences_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Preferences_HB">
+              <PropertyRef Name="typeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Preferences_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="Services_Preferences" Type="Self.Services_Preferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Preferences">
+              <PropertyRef Name="serviceid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Preferences_Services_Preferences_HB">
+          <End Role="Services_Preferences_HB" Type="Self.Services_Preferences_HB" Multiplicity="1" />
+          <End Role="Services_Preferences" Type="Self.Services_Preferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_Preferences_HB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Preferences">
+              <PropertyRef Name="preferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Prices_Price_TypesHB">
+          <End Role="Price_TypesHB" Type="Self.Price_TypesHB" Multiplicity="1" />
+          <End Role="Services_Prices" Type="Self.Services_Prices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price_TypesHB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Prices">
+              <PropertyRef Name="priceTypesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Prices_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="Services_Prices" Type="Self.Services_Prices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Prices">
+              <PropertyRef Name="serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Prices_Services_Preferences_HB">
+          <End Role="Services_Preferences_HB" Type="Self.Services_Preferences_HB" Multiplicity="0..1" />
+          <End Role="Services_Prices" Type="Self.Services_Prices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_Preferences_HB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Prices">
+              <PropertyRef Name="preferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Prices_Tarifs">
+          <End Role="Tarifs" Type="Self.Tarifs" Multiplicity="0..1" />
+          <End Role="Services_Prices" Type="Self.Services_Prices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarifs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Prices">
+              <PropertyRef Name="tarifId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatisticLeftMenu_PrjPreferences">
+          <End Role="PrjPreferences" Type="Self.PrjPreferences" Multiplicity="0..1" />
+          <End Role="StatisticLeftMenu" Type="Self.StatisticLeftMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjPreferences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StatisticLeftMenu">
+              <PropertyRef Name="project_setting_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tarifs_Data_Tarifs">
+          <End Role="Tarifs" Type="Self.Tarifs" Multiplicity="1" />
+          <End Role="Tarifs_Data" Type="Self.Tarifs_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarifs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tarifs_Data">
+              <PropertyRef Name="tarifId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище u436263_newlkModelContainer">
+          <EntitySet Name="100tx_Orders" EntityType="Self.100tx_Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="100tx_OrdersStatuses" EntityType="Self.100tx_OrdersStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="100tx_OrdersStatusHistory" EntityType="Self.100tx_OrdersStatusHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Accounts_Roles" EntityType="Self.Accounts_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Accounts_RolesHB" EntityType="Self.Accounts_RolesHB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Accounts_Users" EntityType="Self.Accounts_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRolesMenus" EntityType="Self.AspNetRolesMenus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs_Messages" EntityType="Self.Logs_Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs_Types" EntityType="Self.Logs_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Price_TypesHB" EntityType="Self.Price_TypesHB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrjPreferences" EntityType="Self.PrjPreferences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrjSettings_Data" EntityType="Self.PrjSettings_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects_Services" EntityType="Self.Projects_Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectTypes" EntityType="Self.ProjectTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services_Data" EntityType="Self.Services_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services_Preferences" EntityType="Self.Services_Preferences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services_Preferences_HB" EntityType="Self.Services_Preferences_HB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services_Preferences_Types" EntityType="Self.Services_Preferences_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services_Prices" EntityType="Self.Services_Prices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatisticLeftMenu" EntityType="Self.StatisticLeftMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarifs" EntityType="Self.Tarifs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarifs_Data" EntityType="Self.Tarifs_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statistic_pbx" EntityType="Self.Statistic_pbx" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Statistic_pbx].[id] AS [id], 
+    [Statistic_pbx].[UNIQUEID] AS [UNIQUEID], 
+    [Statistic_pbx].[start] AS [start], 
+    [Statistic_pbx].[answer] AS [answer], 
+    [Statistic_pbx].[endtime] AS [endtime], 
+    [Statistic_pbx].[src_chan] AS [src_chan], 
+    [Statistic_pbx].[src_num] AS [src_num], 
+    [Statistic_pbx].[dst_chan] AS [dst_chan], 
+    [Statistic_pbx].[dst_num] AS [dst_num], 
+    [Statistic_pbx].[linkedid] AS [linkedid], 
+    [Statistic_pbx].[did] AS [did], 
+    [Statistic_pbx].[disposition] AS [disposition], 
+    [Statistic_pbx].[recordingfile] AS [recordingfile], 
+    [Statistic_pbx].[from_account] AS [from_account], 
+    [Statistic_pbx].[to_account] AS [to_account], 
+    [Statistic_pbx].[dialstatus] AS [dialstatus], 
+    [Statistic_pbx].[appname] AS [appname], 
+    [Statistic_pbx].[transfer] AS [transfer], 
+    [Statistic_pbx].[is_app] AS [is_app], 
+    [Statistic_pbx].[duration] AS [duration], 
+    [Statistic_pbx].[billsec] AS [billsec], 
+    [Statistic_pbx].[work_completed] AS [work_completed]
+    FROM [dbo].[Statistic_pbx] AS [Statistic_pbx]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="StatusSign" EntityType="Self.StatusSign" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [StatusSign].[id] AS [id], 
+    [StatusSign].[document_templates_id] AS [document_templates_id], 
+    [StatusSign].[date] AS [date], 
+    [StatusSign].[account_id] AS [account_id], 
+    [StatusSign].[user_id] AS [user_id]
+    FROM [dbo].[StatusSign] AS [StatusSign]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_100tx_Orders_Accounts" Association="Self.FK_100tx_Orders_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="100tx_Orders" EntitySet="100tx_Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_100tx_OrdersStatusHistory_100tx_OrdersStatuses" Association="Self.FK_100tx_OrdersStatusHistory_100tx_OrdersStatuses">
+            <End Role="100tx_OrdersStatuses" EntitySet="100tx_OrdersStatuses" />
+            <End Role="100tx_OrdersStatusHistory" EntitySet="100tx_OrdersStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Roles_Accounts" Association="Self.FK_Accounts_Roles_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Accounts_Roles" EntitySet="Accounts_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Roles_Accounts_RolesHB" Association="Self.FK_Accounts_Roles_Accounts_RolesHB">
+            <End Role="Accounts_RolesHB" EntitySet="Accounts_RolesHB" />
+            <End Role="Accounts_Roles" EntitySet="Accounts_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Users_Accounts" Association="Self.FK_Accounts_Users_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Accounts_Users" EntitySet="Accounts_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Users_AspNetUsers" Association="Self.FK_Accounts_Users_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Accounts_Users" EntitySet="Accounts_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRolesMenus_AspNetRoles" Association="Self.FK_AspNetRolesMenus_AspNetRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRolesMenus" EntitySet="AspNetRolesMenus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers" Association="Self.FK_AspNetUserClaims_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers" Association="Self.FK_AspNetUserLogins_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles" Association="Self.FK_AspNetUserRoles_AspNetRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="Self.FK_AspNetUserRoles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_Accounts" Association="Self.FK_Logs_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_AspNetUsers" Association="Self.FK_Logs_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_Logs_Types" Association="Self.FK_Logs_Logs_Types">
+            <End Role="Logs_Types" EntitySet="Logs_Types" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_Messages_Logs" Association="Self.FK_Logs_Messages_Logs">
+            <End Role="Logs" EntitySet="Logs" />
+            <End Role="Logs_Messages" EntitySet="Logs_Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjPreferences_PrjPreferences" Association="Self.FK_PrjPreferences_PrjPreferences">
+            <End Role="PrjPreferences" EntitySet="PrjPreferences" />
+            <End Role="PrjPreferences1" EntitySet="PrjPreferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjSettings_Data_PrjPreferences" Association="Self.FK_PrjSettings_Data_PrjPreferences">
+            <End Role="PrjPreferences" EntitySet="PrjPreferences" />
+            <End Role="PrjSettings_Data" EntitySet="PrjSettings_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjSettings_Data_Projects" Association="Self.FK_PrjSettings_Data_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="PrjSettings_Data" EntitySet="PrjSettings_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Accounts" Association="Self.FK_Projects_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_AspNetUsers" Association="Self.FK_Projects_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_AspNetUsers1" Association="Self.FK_Projects_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_ProjectTypes" Association="Self.FK_Projects_ProjectTypes">
+            <End Role="ProjectTypes" EntitySet="ProjectTypes" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Services_Projects" Association="Self.FK_Projects_Services_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Projects_Services" EntitySet="Projects_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Services_Services" Association="Self.FK_Projects_Services_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Projects_Services" EntitySet="Projects_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Data_Projects_Services" Association="Self.FK_Services_Data_Projects_Services">
+            <End Role="Projects_Services" EntitySet="Projects_Services" />
+            <End Role="Services_Data" EntitySet="Services_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Data_Services_Preferences_HB" Association="Self.FK_Services_Data_Services_Preferences_HB">
+            <End Role="Services_Preferences_HB" EntitySet="Services_Preferences_HB" />
+            <End Role="Services_Data" EntitySet="Services_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Preferences_HB_Services_Preferences_Types" Association="Self.FK_Services_Preferences_HB_Services_Preferences_Types">
+            <End Role="Services_Preferences_Types" EntitySet="Services_Preferences_Types" />
+            <End Role="Services_Preferences_HB" EntitySet="Services_Preferences_HB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Preferences_Services" Association="Self.FK_Services_Preferences_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Services_Preferences" EntitySet="Services_Preferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Preferences_Services_Preferences_HB" Association="Self.FK_Services_Preferences_Services_Preferences_HB">
+            <End Role="Services_Preferences_HB" EntitySet="Services_Preferences_HB" />
+            <End Role="Services_Preferences" EntitySet="Services_Preferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Prices_Price_TypesHB" Association="Self.FK_Services_Prices_Price_TypesHB">
+            <End Role="Price_TypesHB" EntitySet="Price_TypesHB" />
+            <End Role="Services_Prices" EntitySet="Services_Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Prices_Services" Association="Self.FK_Services_Prices_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Services_Prices" EntitySet="Services_Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Prices_Services_Preferences_HB" Association="Self.FK_Services_Prices_Services_Preferences_HB">
+            <End Role="Services_Preferences_HB" EntitySet="Services_Preferences_HB" />
+            <End Role="Services_Prices" EntitySet="Services_Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Prices_Tarifs" Association="Self.FK_Services_Prices_Tarifs">
+            <End Role="Tarifs" EntitySet="Tarifs" />
+            <End Role="Services_Prices" EntitySet="Services_Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatisticLeftMenu_PrjPreferences" Association="Self.FK_StatisticLeftMenu_PrjPreferences">
+            <End Role="PrjPreferences" EntitySet="PrjPreferences" />
+            <End Role="StatisticLeftMenu" EntitySet="StatisticLeftMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tarifs_Data_Tarifs" Association="Self.FK_Tarifs_Data_Tarifs">
+            <End Role="Tarifs" EntitySet="Tarifs" />
+            <End Role="Tarifs_Data" EntitySet="Tarifs_Data" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="u436263_newlkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C100tx_Orders" EntityType="u436263_newlkModel.C100tx_Orders" />
+          <EntitySet Name="C100tx_OrdersStatuses" EntityType="u436263_newlkModel.C100tx_OrdersStatuses" />
+          <EntitySet Name="C100tx_OrdersStatusHistory" EntityType="u436263_newlkModel.C100tx_OrdersStatusHistory" />
+          <EntitySet Name="Accounts" EntityType="u436263_newlkModel.Accounts" />
+          <EntitySet Name="Accounts_Roles" EntityType="u436263_newlkModel.Accounts_Roles" />
+          <EntitySet Name="Accounts_RolesHB" EntityType="u436263_newlkModel.Accounts_RolesHB" />
+          <EntitySet Name="Accounts_Users" EntityType="u436263_newlkModel.Accounts_Users" />
+          <EntitySet Name="AspNetRoles" EntityType="u436263_newlkModel.AspNetRoles" />
+          <EntitySet Name="AspNetRolesMenus" EntityType="u436263_newlkModel.AspNetRolesMenus" />
+          <EntitySet Name="AspNetUserClaims" EntityType="u436263_newlkModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="u436263_newlkModel.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="u436263_newlkModel.AspNetUsers" />
+          <EntitySet Name="Logs" EntityType="u436263_newlkModel.Logs" />
+          <EntitySet Name="Logs_Messages" EntityType="u436263_newlkModel.Logs_Messages" />
+          <EntitySet Name="Logs_Types" EntityType="u436263_newlkModel.Logs_Types" />
+          <EntitySet Name="Price_TypesHB" EntityType="u436263_newlkModel.Price_TypesHB" />
+          <EntitySet Name="PrjPreferences" EntityType="u436263_newlkModel.PrjPreferences" />
+          <EntitySet Name="PrjSettings_Data" EntityType="u436263_newlkModel.PrjSettings_Data" />
+          <EntitySet Name="Projects" EntityType="u436263_newlkModel.Projects" />
+          <EntitySet Name="Projects_Services" EntityType="u436263_newlkModel.Projects_Services" />
+          <EntitySet Name="ProjectTypes" EntityType="u436263_newlkModel.ProjectTypes" />
+          <EntitySet Name="Services" EntityType="u436263_newlkModel.Services" />
+          <EntitySet Name="Services_Data" EntityType="u436263_newlkModel.Services_Data" />
+          <EntitySet Name="Services_Preferences" EntityType="u436263_newlkModel.Services_Preferences" />
+          <EntitySet Name="Services_Preferences_HB" EntityType="u436263_newlkModel.Services_Preferences_HB" />
+          <EntitySet Name="Services_Preferences_Types" EntityType="u436263_newlkModel.Services_Preferences_Types" />
+          <EntitySet Name="Services_Prices" EntityType="u436263_newlkModel.Services_Prices" />
+          <EntitySet Name="StatisticLeftMenu" EntityType="u436263_newlkModel.StatisticLeftMenu" />
+          <EntitySet Name="Tarifs" EntityType="u436263_newlkModel.Tarifs" />
+          <EntitySet Name="Tarifs_Data" EntityType="u436263_newlkModel.Tarifs_Data" />
+          <EntitySet Name="Statistic_pbx" EntityType="u436263_newlkModel.Statistic_pbx" />
+          <EntitySet Name="StatusSign" EntityType="u436263_newlkModel.StatusSign" />
+          <AssociationSet Name="FK_100tx_Orders_Accounts" Association="u436263_newlkModel.FK_100tx_Orders_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="C100tx_Orders" EntitySet="C100tx_Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_100tx_OrdersStatusHistory_100tx_OrdersStatuses" Association="u436263_newlkModel.FK_100tx_OrdersStatusHistory_100tx_OrdersStatuses">
+            <End Role="C100tx_OrdersStatuses" EntitySet="C100tx_OrdersStatuses" />
+            <End Role="C100tx_OrdersStatusHistory" EntitySet="C100tx_OrdersStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Roles_Accounts" Association="u436263_newlkModel.FK_Accounts_Roles_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Accounts_Roles" EntitySet="Accounts_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Users_Accounts" Association="u436263_newlkModel.FK_Accounts_Users_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Accounts_Users" EntitySet="Accounts_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_Accounts" Association="u436263_newlkModel.FK_Logs_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Accounts" Association="u436263_newlkModel.FK_Projects_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Roles_Accounts_RolesHB" Association="u436263_newlkModel.FK_Accounts_Roles_Accounts_RolesHB">
+            <End Role="Accounts_RolesHB" EntitySet="Accounts_RolesHB" />
+            <End Role="Accounts_Roles" EntitySet="Accounts_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Users_AspNetUsers" Association="u436263_newlkModel.FK_Accounts_Users_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Accounts_Users" EntitySet="Accounts_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRolesMenus_AspNetRoles" Association="u436263_newlkModel.FK_AspNetRolesMenus_AspNetRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRolesMenus" EntitySet="AspNetRolesMenus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers" Association="u436263_newlkModel.FK_AspNetUserClaims_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers" Association="u436263_newlkModel.FK_AspNetUserLogins_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_AspNetUsers" Association="u436263_newlkModel.FK_Logs_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_AspNetUsers" Association="u436263_newlkModel.FK_Projects_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_AspNetUsers1" Association="u436263_newlkModel.FK_Projects_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_Logs_Types" Association="u436263_newlkModel.FK_Logs_Logs_Types">
+            <End Role="Logs_Types" EntitySet="Logs_Types" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_Messages_Logs" Association="u436263_newlkModel.FK_Logs_Messages_Logs">
+            <End Role="Logs" EntitySet="Logs" />
+            <End Role="Logs_Messages" EntitySet="Logs_Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Prices_Price_TypesHB" Association="u436263_newlkModel.FK_Services_Prices_Price_TypesHB">
+            <End Role="Price_TypesHB" EntitySet="Price_TypesHB" />
+            <End Role="Services_Prices" EntitySet="Services_Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjPreferences_PrjPreferences" Association="u436263_newlkModel.FK_PrjPreferences_PrjPreferences">
+            <End Role="PrjPreferences" EntitySet="PrjPreferences" />
+            <End Role="PrjPreferences1" EntitySet="PrjPreferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjSettings_Data_PrjPreferences" Association="u436263_newlkModel.FK_PrjSettings_Data_PrjPreferences">
+            <End Role="PrjPreferences" EntitySet="PrjPreferences" />
+            <End Role="PrjSettings_Data" EntitySet="PrjSettings_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatisticLeftMenu_PrjPreferences" Association="u436263_newlkModel.FK_StatisticLeftMenu_PrjPreferences">
+            <End Role="PrjPreferences" EntitySet="PrjPreferences" />
+            <End Role="StatisticLeftMenu" EntitySet="StatisticLeftMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrjSettings_Data_Projects" Association="u436263_newlkModel.FK_PrjSettings_Data_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="PrjSettings_Data" EntitySet="PrjSettings_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_ProjectTypes" Association="u436263_newlkModel.FK_Projects_ProjectTypes">
+            <End Role="ProjectTypes" EntitySet="ProjectTypes" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Services_Projects" Association="u436263_newlkModel.FK_Projects_Services_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Projects_Services" EntitySet="Projects_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Services_Services" Association="u436263_newlkModel.FK_Projects_Services_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Projects_Services" EntitySet="Projects_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Data_Projects_Services" Association="u436263_newlkModel.FK_Services_Data_Projects_Services">
+            <End Role="Projects_Services" EntitySet="Projects_Services" />
+            <End Role="Services_Data" EntitySet="Services_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Preferences_Services" Association="u436263_newlkModel.FK_Services_Preferences_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Services_Preferences" EntitySet="Services_Preferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Prices_Services" Association="u436263_newlkModel.FK_Services_Prices_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="Services_Prices" EntitySet="Services_Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Data_Services_Preferences_HB" Association="u436263_newlkModel.FK_Services_Data_Services_Preferences_HB">
+            <End Role="Services_Preferences_HB" EntitySet="Services_Preferences_HB" />
+            <End Role="Services_Data" EntitySet="Services_Data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Preferences_Services_Preferences_HB" Association="u436263_newlkModel.FK_Services_Preferences_Services_Preferences_HB">
+            <End Role="Services_Preferences_HB" EntitySet="Services_Preferences_HB" />
+            <End Role="Services_Preferences" EntitySet="Services_Preferences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Preferences_HB_Services_Preferences_Types" Association="u436263_newlkModel.FK_Services_Preferences_HB_Services_Preferences_Types">
+            <End Role="Services_Preferences_Types" EntitySet="Services_Preferences_Types" />
+            <End Role="Services_Preferences_HB" EntitySet="Services_Preferences_HB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Prices_Services_Preferences_HB" Association="u436263_newlkModel.FK_Services_Prices_Services_Preferences_HB">
+            <End Role="Services_Preferences_HB" EntitySet="Services_Preferences_HB" />
+            <End Role="Services_Prices" EntitySet="Services_Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Services_Prices_Tarifs" Association="u436263_newlkModel.FK_Services_Prices_Tarifs">
+            <End Role="Tarifs" EntitySet="Tarifs" />
+            <End Role="Services_Prices" EntitySet="Services_Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tarifs_Data_Tarifs" Association="u436263_newlkModel.FK_Tarifs_Data_Tarifs">
+            <End Role="Tarifs" EntitySet="Tarifs" />
+            <End Role="Tarifs_Data" EntitySet="Tarifs_Data" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="u436263_newlkModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C100tx_Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="account" Type="Int64" Nullable="false" />
+          <Property Name="specification" Type="Int64" />
+          <Property Name="dateadd" Type="DateTime" Precision="0" />
+          <Property Name="plan_purchase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="markup" Type="Int32" />
+          <Property Name="creatorAccount" Type="Int64" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sum" Type="Int64" />
+          <Property Name="stage" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="term_stage" Type="DateTime" Precision="0" />
+          <Property Name="date_stage" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Accounts" Relationship="u436263_newlkModel.FK_100tx_Orders_Accounts" FromRole="C100tx_Orders" ToRole="Accounts" />
+        </EntityType>
+        <EntityType Name="C100tx_OrdersStatuses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C100tx_OrdersStatusHistory" Relationship="u436263_newlkModel.FK_100tx_OrdersStatusHistory_100tx_OrdersStatuses" FromRole="C100tx_OrdersStatuses" ToRole="C100tx_OrdersStatusHistory" />
+        </EntityType>
+        <EntityType Name="C100tx_OrdersStatusHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="spec_id" Type="Int64" Nullable="false" />
+          <Property Name="prov_id" Type="Int64" Nullable="false" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="C100tx_OrdersStatuses" Relationship="u436263_newlkModel.FK_100tx_OrdersStatusHistory_100tx_OrdersStatuses" FromRole="C100tx_OrdersStatusHistory" ToRole="C100tx_OrdersStatuses" />
+        </EntityType>
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShortLegalName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="FullLegalName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="DirectorFullName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Site" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Industry" Type="Int32" />
+          <Property Name="Actual_Street" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Legal_Street" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Bank_Bic" Type="String" MaxLength="9" FixedLength="true" Unicode="true" />
+          <Property Name="Bank_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Bank_Account" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Bank_Korrespondent" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="KPP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ClientGuid" Type="Guid" />
+          <Property Name="NumberContract" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateContract" Type="DateTime" Precision="0" />
+          <Property Name="Guid" Type="Guid" />
+          <Property Name="Ogrn" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="PostDirector" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PostContact" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Document" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Interaction" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="dateadd" Type="DateTime" Precision="0" />
+          <Property Name="NDS_YES" Type="Boolean" />
+          <Property Name="NDS_NO" Type="Boolean" />
+          <Property Name="ZAKUPKI_YES" Type="Boolean" />
+          <Property Name="ZAKUPKI_NO" Type="Boolean" />
+          <Property Name="SKLAD_ADDRESS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="KPTextBlock" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Currency" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C100tx_Orders" Relationship="u436263_newlkModel.FK_100tx_Orders_Accounts" FromRole="Accounts" ToRole="C100tx_Orders" />
+          <NavigationProperty Name="Accounts_Roles" Relationship="u436263_newlkModel.FK_Accounts_Roles_Accounts" FromRole="Accounts" ToRole="Accounts_Roles" />
+          <NavigationProperty Name="Accounts_Users" Relationship="u436263_newlkModel.FK_Accounts_Users_Accounts" FromRole="Accounts" ToRole="Accounts_Users" />
+          <NavigationProperty Name="Logs" Relationship="u436263_newlkModel.FK_Logs_Accounts" FromRole="Accounts" ToRole="Logs" />
+          <NavigationProperty Name="Projects" Relationship="u436263_newlkModel.FK_Projects_Accounts" FromRole="Accounts" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="Accounts_Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Account" Type="Int64" Nullable="false" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="u436263_newlkModel.FK_Accounts_Roles_Accounts" FromRole="Accounts_Roles" ToRole="Accounts" />
+          <NavigationProperty Name="Accounts_RolesHB" Relationship="u436263_newlkModel.FK_Accounts_Roles_Accounts_RolesHB" FromRole="Accounts_Roles" ToRole="Accounts_RolesHB" />
+        </EntityType>
+        <EntityType Name="Accounts_RolesHB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Accounts_Roles" Relationship="u436263_newlkModel.FK_Accounts_Roles_Accounts_RolesHB" FromRole="Accounts_RolesHB" ToRole="Accounts_Roles" />
+        </EntityType>
+        <EntityType Name="Accounts_Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="accountId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="u436263_newlkModel.FK_Accounts_Users_Accounts" FromRole="Accounts_Users" ToRole="Accounts" />
+          <NavigationProperty Name="AspNetUsers" Relationship="u436263_newlkModel.FK_Accounts_Users_AspNetUsers" FromRole="Accounts_Users" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRolesMenus" Relationship="u436263_newlkModel.FK_AspNetRolesMenus_AspNetRoles" FromRole="AspNetRoles" ToRole="AspNetRolesMenus" />
+          <NavigationProperty Name="AspNetUsers" Relationship="u436263_newlkModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetRolesMenus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MenuId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRoles" Relationship="u436263_newlkModel.FK_AspNetRolesMenus_AspNetRoles" FromRole="AspNetRolesMenus" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="u436263_newlkModel.FK_AspNetUserClaims_AspNetUsers" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="u436263_newlkModel.FK_AspNetUserLogins_AspNetUsers" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="0" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Accounts_Users" Relationship="u436263_newlkModel.FK_Accounts_Users_AspNetUsers" FromRole="AspNetUsers" ToRole="Accounts_Users" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="u436263_newlkModel.FK_AspNetUserClaims_AspNetUsers" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="u436263_newlkModel.FK_AspNetUserLogins_AspNetUsers" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Logs" Relationship="u436263_newlkModel.FK_Logs_AspNetUsers" FromRole="AspNetUsers" ToRole="Logs" />
+          <NavigationProperty Name="Projects" Relationship="u436263_newlkModel.FK_Projects_AspNetUsers" FromRole="AspNetUsers" ToRole="Projects" />
+          <NavigationProperty Name="Projects1" Relationship="u436263_newlkModel.FK_Projects_AspNetUsers1" FromRole="AspNetUsers" ToRole="Projects" />
+          <NavigationProperty Name="AspNetRoles" Relationship="u436263_newlkModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="logType" Type="Int32" Nullable="false" />
+          <Property Name="accountId" Type="Int64" Nullable="false" />
+          <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="json" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="actionId" Type="Int32" />
+          <Property Name="typetable" Type="Int32" />
+          <Property Name="idtable" Type="Int32" />
+          <Property Name="datetime" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Accounts" Relationship="u436263_newlkModel.FK_Logs_Accounts" FromRole="Logs" ToRole="Accounts" />
+          <NavigationProperty Name="AspNetUsers" Relationship="u436263_newlkModel.FK_Logs_AspNetUsers" FromRole="Logs" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Logs_Types" Relationship="u436263_newlkModel.FK_Logs_Logs_Types" FromRole="Logs" ToRole="Logs_Types" />
+          <NavigationProperty Name="Logs_Messages" Relationship="u436263_newlkModel.FK_Logs_Messages_Logs" FromRole="Logs" ToRole="Logs_Messages" />
+        </EntityType>
+        <EntityType Name="Logs_Messages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="logId" Type="Int64" Nullable="false" />
+          <Property Name="messageId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="messagesCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Logs" Relationship="u436263_newlkModel.FK_Logs_Messages_Logs" FromRole="Logs_Messages" ToRole="Logs" />
+        </EntityType>
+        <EntityType Name="Logs_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="text" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Logs" Relationship="u436263_newlkModel.FK_Logs_Logs_Types" FromRole="Logs_Types" ToRole="Logs" />
+        </EntityType>
+        <EntityType Name="Price_TypesHB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Services_Prices" Relationship="u436263_newlkModel.FK_Services_Prices_Price_TypesHB" FromRole="Price_TypesHB" ToRole="Services_Prices" />
+        </EntityType>
+        <EntityType Name="PrjPreferences">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="typedata_id" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="parent_id" Type="Int32" />
+          <Property Name="position_id" Type="Int32" />
+          <Property Name="setting_id" Type="Int32" />
+          <Property Name="display_order" Type="Int32" />
+          <NavigationProperty Name="PrjPreferences1" Relationship="u436263_newlkModel.FK_PrjPreferences_PrjPreferences" FromRole="PrjPreferences" ToRole="PrjPreferences1" />
+          <NavigationProperty Name="PrjPreferences2" Relationship="u436263_newlkModel.FK_PrjPreferences_PrjPreferences" FromRole="PrjPreferences1" ToRole="PrjPreferences" />
+          <NavigationProperty Name="PrjSettings_Data" Relationship="u436263_newlkModel.FK_PrjSettings_Data_PrjPreferences" FromRole="PrjPreferences" ToRole="PrjSettings_Data" />
+          <NavigationProperty Name="StatisticLeftMenu" Relationship="u436263_newlkModel.FK_StatisticLeftMenu_PrjPreferences" FromRole="PrjPreferences" ToRole="StatisticLeftMenu" />
+        </EntityType>
+        <EntityType Name="PrjSettings_Data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projects_id" Type="Int32" />
+          <Property Name="preferences_id" Type="Int32" />
+          <Property Name="value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PrjPreferences" Relationship="u436263_newlkModel.FK_PrjSettings_Data_PrjPreferences" FromRole="PrjSettings_Data" ToRole="PrjPreferences" />
+          <NavigationProperty Name="Projects" Relationship="u436263_newlkModel.FK_PrjSettings_Data_Projects" FromRole="PrjSettings_Data" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="accountId" Type="Int64" Nullable="false" />
+          <Property Name="oktellCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="guid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date_create" Type="DateTime" Precision="3" />
+          <Property Name="date_last_edit" Type="DateTime" Precision="3" />
+          <Property Name="TypeId" Type="Guid" />
+          <Property Name="creatorId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ownerId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="statusesId" Type="Int32" Nullable="false" />
+          <Property Name="isExternal" Type="Boolean" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <Property Name="endDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="startDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <Property Name="avatar" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Accounts" Relationship="u436263_newlkModel.FK_Projects_Accounts" FromRole="Projects" ToRole="Accounts" />
+          <NavigationProperty Name="AspNetUsers" Relationship="u436263_newlkModel.FK_Projects_AspNetUsers" FromRole="Projects" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="u436263_newlkModel.FK_Projects_AspNetUsers1" FromRole="Projects" ToRole="AspNetUsers" />
+          <NavigationProperty Name="PrjSettings_Data" Relationship="u436263_newlkModel.FK_PrjSettings_Data_Projects" FromRole="Projects" ToRole="PrjSettings_Data" />
+          <NavigationProperty Name="ProjectTypes" Relationship="u436263_newlkModel.FK_Projects_ProjectTypes" FromRole="Projects" ToRole="ProjectTypes" />
+          <NavigationProperty Name="Projects_Services" Relationship="u436263_newlkModel.FK_Projects_Services_Projects" FromRole="Projects" ToRole="Projects_Services" />
+        </EntityType>
+        <EntityType Name="Projects_Services">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projectId" Type="Int32" Nullable="false" />
+          <Property Name="serviceId" Type="Int32" Nullable="false" />
+          <Property Name="value" Type="Int32" />
+          <NavigationProperty Name="Projects" Relationship="u436263_newlkModel.FK_Projects_Services_Projects" FromRole="Projects_Services" ToRole="Projects" />
+          <NavigationProperty Name="Services" Relationship="u436263_newlkModel.FK_Projects_Services_Services" FromRole="Projects_Services" ToRole="Services" />
+          <NavigationProperty Name="Services_Data" Relationship="u436263_newlkModel.FK_Services_Data_Projects_Services" FromRole="Projects_Services" ToRole="Services_Data" />
+        </EntityType>
+        <EntityType Name="ProjectTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Disciption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Projects" Relationship="u436263_newlkModel.FK_Projects_ProjectTypes" FromRole="ProjectTypes" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Projects_Services" Relationship="u436263_newlkModel.FK_Projects_Services_Services" FromRole="Services" ToRole="Projects_Services" />
+          <NavigationProperty Name="Services_Preferences" Relationship="u436263_newlkModel.FK_Services_Preferences_Services" FromRole="Services" ToRole="Services_Preferences" />
+          <NavigationProperty Name="Services_Prices" Relationship="u436263_newlkModel.FK_Services_Prices_Services" FromRole="Services" ToRole="Services_Prices" />
+        </EntityType>
+        <EntityType Name="Services_Data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="project_serviceId" Type="Int32" />
+          <Property Name="preferenceId" Type="Int32" />
+          <Property Name="preferenceValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Projects_Services" Relationship="u436263_newlkModel.FK_Services_Data_Projects_Services" FromRole="Services_Data" ToRole="Projects_Services" />
+          <NavigationProperty Name="Services_Preferences_HB" Relationship="u436263_newlkModel.FK_Services_Data_Services_Preferences_HB" FromRole="Services_Data" ToRole="Services_Preferences_HB" />
+        </EntityType>
+        <EntityType Name="Services_Preferences">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="serviceid" Type="Int32" Nullable="false" />
+          <Property Name="preferenceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Services" Relationship="u436263_newlkModel.FK_Services_Preferences_Services" FromRole="Services_Preferences" ToRole="Services" />
+          <NavigationProperty Name="Services_Preferences_HB" Relationship="u436263_newlkModel.FK_Services_Preferences_Services_Preferences_HB" FromRole="Services_Preferences" ToRole="Services_Preferences_HB" />
+        </EntityType>
+        <EntityType Name="Services_Preferences_HB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="typeId" Type="Int32" Nullable="false" />
+          <Property Name="readOnly" Type="Boolean" />
+          <NavigationProperty Name="Services_Data" Relationship="u436263_newlkModel.FK_Services_Data_Services_Preferences_HB" FromRole="Services_Preferences_HB" ToRole="Services_Data" />
+          <NavigationProperty Name="Services_Preferences" Relationship="u436263_newlkModel.FK_Services_Preferences_Services_Preferences_HB" FromRole="Services_Preferences_HB" ToRole="Services_Preferences" />
+          <NavigationProperty Name="Services_Preferences_Types" Relationship="u436263_newlkModel.FK_Services_Preferences_HB_Services_Preferences_Types" FromRole="Services_Preferences_HB" ToRole="Services_Preferences_Types" />
+          <NavigationProperty Name="Services_Prices" Relationship="u436263_newlkModel.FK_Services_Prices_Services_Preferences_HB" FromRole="Services_Preferences_HB" ToRole="Services_Prices" />
+        </EntityType>
+        <EntityType Name="Services_Preferences_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Services_Preferences_HB" Relationship="u436263_newlkModel.FK_Services_Preferences_HB_Services_Preferences_Types" FromRole="Services_Preferences_Types" ToRole="Services_Preferences_HB" />
+        </EntityType>
+        <EntityType Name="Services_Prices">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="serviceId" Type="Int32" Nullable="false" />
+          <Property Name="priceTypesId" Type="Int32" Nullable="false" />
+          <Property Name="tarifId" Type="Int32" />
+          <Property Name="preferenceId" Type="Int32" />
+          <Property Name="value" Type="Int32" />
+          <Property Name="date_create" Type="DateTime" Precision="0" />
+          <Property Name="date_start" Type="DateTime" Precision="0" />
+          <Property Name="date_stop" Type="DateTime" Precision="0" />
+          <Property Name="isActive" Type="Boolean" />
+          <NavigationProperty Name="Price_TypesHB" Relationship="u436263_newlkModel.FK_Services_Prices_Price_TypesHB" FromRole="Services_Prices" ToRole="Price_TypesHB" />
+          <NavigationProperty Name="Services" Relationship="u436263_newlkModel.FK_Services_Prices_Services" FromRole="Services_Prices" ToRole="Services" />
+          <NavigationProperty Name="Services_Preferences_HB" Relationship="u436263_newlkModel.FK_Services_Prices_Services_Preferences_HB" FromRole="Services_Prices" ToRole="Services_Preferences_HB" />
+          <NavigationProperty Name="Tarifs" Relationship="u436263_newlkModel.FK_Services_Prices_Tarifs" FromRole="Services_Prices" ToRole="Tarifs" />
+        </EntityType>
+        <EntityType Name="StatisticLeftMenu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="display_order" Type="Int32" />
+          <Property Name="project_setting_id" Type="Int32" />
+          <Property Name="action_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="icon_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PrjPreferences" Relationship="u436263_newlkModel.FK_StatisticLeftMenu_PrjPreferences" FromRole="StatisticLeftMenu" ToRole="PrjPreferences" />
+        </EntityType>
+        <EntityType Name="Tarifs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_create" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Services_Prices" Relationship="u436263_newlkModel.FK_Services_Prices_Tarifs" FromRole="Tarifs" ToRole="Services_Prices" />
+          <NavigationProperty Name="Tarifs_Data" Relationship="u436263_newlkModel.FK_Tarifs_Data_Tarifs" FromRole="Tarifs" ToRole="Tarifs_Data" />
+        </EntityType>
+        <EntityType Name="Tarifs_Data">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
+          <Property Name="count" Type="Int32" Nullable="false" />
+          <Property Name="tarifId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tarifs" Relationship="u436263_newlkModel.FK_Tarifs_Data_Tarifs" FromRole="Tarifs_Data" ToRole="Tarifs" />
+        </EntityType>
+        <EntityType Name="Statistic_pbx">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="UNIQUEID" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="start" Type="DateTime" Precision="0" />
+          <Property Name="answer" Type="DateTime" Precision="0" />
+          <Property Name="endtime" Type="DateTime" Precision="0" />
+          <Property Name="src_chan" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="src_num" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="dst_chan" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="dst_num" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="linkedid" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="did" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="disposition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="recordingfile" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="from_account" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="to_account" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="dialstatus" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="appname" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="transfer" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="is_app" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="duration" Type="Int32" />
+          <Property Name="billsec" Type="Int32" />
+          <Property Name="work_completed" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StatusSign">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="document_templates_id" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="account_id" Type="Int64" />
+          <Property Name="user_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_100tx_Orders_Accounts">
+          <End Type="u436263_newlkModel.Accounts" Role="Accounts" Multiplicity="1" />
+          <End Type="u436263_newlkModel.C100tx_Orders" Role="C100tx_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="C100tx_Orders">
+              <PropertyRef Name="account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_100tx_OrdersStatusHistory_100tx_OrdersStatuses">
+          <End Type="u436263_newlkModel.C100tx_OrdersStatuses" Role="C100tx_OrdersStatuses" Multiplicity="1" />
+          <End Type="u436263_newlkModel.C100tx_OrdersStatusHistory" Role="C100tx_OrdersStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C100tx_OrdersStatuses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="C100tx_OrdersStatusHistory">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Roles_Accounts">
+          <End Type="u436263_newlkModel.Accounts" Role="Accounts" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Accounts_Roles" Role="Accounts_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts_Roles">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Users_Accounts">
+          <End Type="u436263_newlkModel.Accounts" Role="Accounts" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Accounts_Users" Role="Accounts_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts_Users">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_Accounts">
+          <End Type="u436263_newlkModel.Accounts" Role="Accounts" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Logs" Role="Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Accounts">
+          <End Type="u436263_newlkModel.Accounts" Role="Accounts" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Projects" Role="Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="accountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Roles_Accounts_RolesHB">
+          <End Type="u436263_newlkModel.Accounts_RolesHB" Role="Accounts_RolesHB" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Accounts_Roles" Role="Accounts_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts_RolesHB">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts_Roles">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Users_AspNetUsers">
+          <End Type="u436263_newlkModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Accounts_Users" Role="Accounts_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts_Users">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetRolesMenus_AspNetRoles">
+          <End Type="u436263_newlkModel.AspNetRoles" Role="AspNetRoles" Multiplicity="1" />
+          <End Type="u436263_newlkModel.AspNetRolesMenus" Role="AspNetRolesMenus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRolesMenus">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers">
+          <End Type="u436263_newlkModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="u436263_newlkModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserLogins_AspNetUsers">
+          <End Type="u436263_newlkModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="u436263_newlkModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_AspNetUsers">
+          <End Type="u436263_newlkModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.Logs" Role="Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_AspNetUsers">
+          <End Type="u436263_newlkModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.Projects" Role="Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="creatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_AspNetUsers1">
+          <End Type="u436263_newlkModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.Projects" Role="Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ownerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_Logs_Types">
+          <End Type="u436263_newlkModel.Logs_Types" Role="Logs_Types" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Logs" Role="Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logs_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="logType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_Messages_Logs">
+          <End Type="u436263_newlkModel.Logs" Role="Logs" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Logs_Messages" Role="Logs_Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Logs_Messages">
+              <PropertyRef Name="logId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Prices_Price_TypesHB">
+          <End Type="u436263_newlkModel.Price_TypesHB" Role="Price_TypesHB" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Services_Prices" Role="Services_Prices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Price_TypesHB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Prices">
+              <PropertyRef Name="priceTypesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjPreferences_PrjPreferences">
+          <End Type="u436263_newlkModel.PrjPreferences" Role="PrjPreferences" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.PrjPreferences" Role="PrjPreferences1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjPreferences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PrjPreferences1">
+              <PropertyRef Name="parent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjSettings_Data_PrjPreferences">
+          <End Type="u436263_newlkModel.PrjPreferences" Role="PrjPreferences" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.PrjSettings_Data" Role="PrjSettings_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjPreferences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PrjSettings_Data">
+              <PropertyRef Name="preferences_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatisticLeftMenu_PrjPreferences">
+          <End Type="u436263_newlkModel.PrjPreferences" Role="PrjPreferences" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.StatisticLeftMenu" Role="StatisticLeftMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PrjPreferences">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StatisticLeftMenu">
+              <PropertyRef Name="project_setting_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrjSettings_Data_Projects">
+          <End Type="u436263_newlkModel.Projects" Role="Projects" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.PrjSettings_Data" Role="PrjSettings_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PrjSettings_Data">
+              <PropertyRef Name="projects_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_ProjectTypes">
+          <End Type="u436263_newlkModel.ProjectTypes" Role="ProjectTypes" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.Projects" Role="Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Services_Projects">
+          <End Type="u436263_newlkModel.Projects" Role="Projects" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Projects_Services" Role="Projects_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Projects_Services">
+              <PropertyRef Name="projectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Services_Services">
+          <End Type="u436263_newlkModel.Services" Role="Services" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Projects_Services" Role="Projects_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Projects_Services">
+              <PropertyRef Name="serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Data_Projects_Services">
+          <End Type="u436263_newlkModel.Projects_Services" Role="Projects_Services" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.Services_Data" Role="Services_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects_Services">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Data">
+              <PropertyRef Name="project_serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Preferences_Services">
+          <End Type="u436263_newlkModel.Services" Role="Services" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Services_Preferences" Role="Services_Preferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Preferences">
+              <PropertyRef Name="serviceid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Prices_Services">
+          <End Type="u436263_newlkModel.Services" Role="Services" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Services_Prices" Role="Services_Prices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Prices">
+              <PropertyRef Name="serviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Data_Services_Preferences_HB">
+          <End Type="u436263_newlkModel.Services_Preferences_HB" Role="Services_Preferences_HB" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.Services_Data" Role="Services_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_Preferences_HB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Data">
+              <PropertyRef Name="preferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Preferences_Services_Preferences_HB">
+          <End Type="u436263_newlkModel.Services_Preferences_HB" Role="Services_Preferences_HB" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Services_Preferences" Role="Services_Preferences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_Preferences_HB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Preferences">
+              <PropertyRef Name="preferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Preferences_HB_Services_Preferences_Types">
+          <End Type="u436263_newlkModel.Services_Preferences_Types" Role="Services_Preferences_Types" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Services_Preferences_HB" Role="Services_Preferences_HB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_Preferences_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Preferences_HB">
+              <PropertyRef Name="typeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Prices_Services_Preferences_HB">
+          <End Type="u436263_newlkModel.Services_Preferences_HB" Role="Services_Preferences_HB" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.Services_Prices" Role="Services_Prices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services_Preferences_HB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Prices">
+              <PropertyRef Name="preferenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Services_Prices_Tarifs">
+          <End Type="u436263_newlkModel.Tarifs" Role="Tarifs" Multiplicity="0..1" />
+          <End Type="u436263_newlkModel.Services_Prices" Role="Services_Prices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarifs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Services_Prices">
+              <PropertyRef Name="tarifId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tarifs_Data_Tarifs">
+          <End Type="u436263_newlkModel.Tarifs" Role="Tarifs" Multiplicity="1" />
+          <End Type="u436263_newlkModel.Tarifs_Data" Role="Tarifs_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarifs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tarifs_Data">
+              <PropertyRef Name="tarifId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="u436263_newlkModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="u436263_newlkModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище u436263_newlkModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="C100tx_Orders">
+            <EntityTypeMapping TypeName="u436263_newlkModel.C100tx_Orders">
+              <MappingFragment StoreEntitySet="100tx_Orders">
+                <ScalarProperty Name="date_stage" ColumnName="date_stage" />
+                <ScalarProperty Name="term_stage" ColumnName="term_stage" />
+                <ScalarProperty Name="stage" ColumnName="stage" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="creatorAccount" ColumnName="creatorAccount" />
+                <ScalarProperty Name="markup" ColumnName="markup" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="plan_purchase" ColumnName="plan_purchase" />
+                <ScalarProperty Name="dateadd" ColumnName="dateadd" />
+                <ScalarProperty Name="specification" ColumnName="specification" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C100tx_OrdersStatuses">
+            <EntityTypeMapping TypeName="u436263_newlkModel.C100tx_OrdersStatuses">
+              <MappingFragment StoreEntitySet="100tx_OrdersStatuses">
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C100tx_OrdersStatusHistory">
+            <EntityTypeMapping TypeName="u436263_newlkModel.C100tx_OrdersStatusHistory">
+              <MappingFragment StoreEntitySet="100tx_OrdersStatusHistory">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="prov_id" ColumnName="prov_id" />
+                <ScalarProperty Name="spec_id" ColumnName="spec_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Accounts">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="KPTextBlock" ColumnName="KPTextBlock" />
+                <ScalarProperty Name="SKLAD_ADDRESS" ColumnName="SKLAD_ADDRESS" />
+                <ScalarProperty Name="ZAKUPKI_NO" ColumnName="ZAKUPKI_NO" />
+                <ScalarProperty Name="ZAKUPKI_YES" ColumnName="ZAKUPKI_YES" />
+                <ScalarProperty Name="NDS_NO" ColumnName="NDS_NO" />
+                <ScalarProperty Name="NDS_YES" ColumnName="NDS_YES" />
+                <ScalarProperty Name="dateadd" ColumnName="dateadd" />
+                <ScalarProperty Name="Interaction" ColumnName="Interaction" />
+                <ScalarProperty Name="Document" ColumnName="Document" />
+                <ScalarProperty Name="PostContact" ColumnName="PostContact" />
+                <ScalarProperty Name="PostDirector" ColumnName="PostDirector" />
+                <ScalarProperty Name="Ogrn" ColumnName="Ogrn" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="DateContract" ColumnName="DateContract" />
+                <ScalarProperty Name="NumberContract" ColumnName="NumberContract" />
+                <ScalarProperty Name="ClientGuid" ColumnName="ClientGuid" />
+                <ScalarProperty Name="KPP" ColumnName="KPP" />
+                <ScalarProperty Name="Bank_Korrespondent" ColumnName="Bank_Korrespondent" />
+                <ScalarProperty Name="Bank_Account" ColumnName="Bank_Account" />
+                <ScalarProperty Name="Bank_Name" ColumnName="Bank_Name" />
+                <ScalarProperty Name="Bank_Bic" ColumnName="Bank_Bic" />
+                <ScalarProperty Name="Legal_Street" ColumnName="Legal_Street" />
+                <ScalarProperty Name="Actual_Street" ColumnName="Actual_Street" />
+                <ScalarProperty Name="Industry" ColumnName="Industry" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="DirectorFullName" ColumnName="DirectorFullName" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="FullLegalName" ColumnName="FullLegalName" />
+                <ScalarProperty Name="ShortLegalName" ColumnName="ShortLegalName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts_Roles">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Accounts_Roles">
+              <MappingFragment StoreEntitySet="Accounts_Roles">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts_RolesHB">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Accounts_RolesHB">
+              <MappingFragment StoreEntitySet="Accounts_RolesHB">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts_Users">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Accounts_Users">
+              <MappingFragment StoreEntitySet="Accounts_Users">
+                <ScalarProperty Name="accountId" ColumnName="accountId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="u436263_newlkModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRolesMenus">
+            <EntityTypeMapping TypeName="u436263_newlkModel.AspNetRolesMenus">
+              <MappingFragment StoreEntitySet="AspNetRolesMenus">
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="u436263_newlkModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="u436263_newlkModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="u436263_newlkModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Logs">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="idtable" ColumnName="idtable" />
+                <ScalarProperty Name="typetable" ColumnName="typetable" />
+                <ScalarProperty Name="actionId" ColumnName="actionId" />
+                <ScalarProperty Name="json" ColumnName="json" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="accountId" ColumnName="accountId" />
+                <ScalarProperty Name="logType" ColumnName="logType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs_Messages">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Logs_Messages">
+              <MappingFragment StoreEntitySet="Logs_Messages">
+                <ScalarProperty Name="messagesCount" ColumnName="messagesCount" />
+                <ScalarProperty Name="messageId" ColumnName="messageId" />
+                <ScalarProperty Name="logId" ColumnName="logId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs_Types">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Logs_Types">
+              <MappingFragment StoreEntitySet="Logs_Types">
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Price_TypesHB">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Price_TypesHB">
+              <MappingFragment StoreEntitySet="Price_TypesHB">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrjPreferences">
+            <EntityTypeMapping TypeName="u436263_newlkModel.PrjPreferences">
+              <MappingFragment StoreEntitySet="PrjPreferences">
+                <ScalarProperty Name="display_order" ColumnName="display_order" />
+                <ScalarProperty Name="setting_id" ColumnName="setting_id" />
+                <ScalarProperty Name="position_id" ColumnName="position_id" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="typedata_id" ColumnName="typedata_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrjSettings_Data">
+            <EntityTypeMapping TypeName="u436263_newlkModel.PrjSettings_Data">
+              <MappingFragment StoreEntitySet="PrjSettings_Data">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="preferences_id" ColumnName="preferences_id" />
+                <ScalarProperty Name="projects_id" ColumnName="projects_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Projects">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="isExternal" ColumnName="isExternal" />
+                <ScalarProperty Name="statusesId" ColumnName="statusesId" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="ownerId" ColumnName="ownerId" />
+                <ScalarProperty Name="creatorId" ColumnName="creatorId" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="date_last_edit" ColumnName="date_last_edit" />
+                <ScalarProperty Name="date_create" ColumnName="date_create" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
+                <ScalarProperty Name="oktellCode" ColumnName="oktellCode" />
+                <ScalarProperty Name="accountId" ColumnName="accountId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects_Services">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Projects_Services">
+              <MappingFragment StoreEntitySet="Projects_Services">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="serviceId" ColumnName="serviceId" />
+                <ScalarProperty Name="projectId" ColumnName="projectId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectTypes">
+            <EntityTypeMapping TypeName="u436263_newlkModel.ProjectTypes">
+              <MappingFragment StoreEntitySet="ProjectTypes">
+                <ScalarProperty Name="Disciption" ColumnName="Disciption" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Services">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services_Data">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Services_Data">
+              <MappingFragment StoreEntitySet="Services_Data">
+                <ScalarProperty Name="preferenceValue" ColumnName="preferenceValue" />
+                <ScalarProperty Name="preferenceId" ColumnName="preferenceId" />
+                <ScalarProperty Name="project_serviceId" ColumnName="project_serviceId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services_Preferences">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Services_Preferences">
+              <MappingFragment StoreEntitySet="Services_Preferences">
+                <ScalarProperty Name="preferenceId" ColumnName="preferenceId" />
+                <ScalarProperty Name="serviceid" ColumnName="serviceid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services_Preferences_HB">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Services_Preferences_HB">
+              <MappingFragment StoreEntitySet="Services_Preferences_HB">
+                <ScalarProperty Name="readOnly" ColumnName="readOnly" />
+                <ScalarProperty Name="typeId" ColumnName="typeId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services_Preferences_Types">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Services_Preferences_Types">
+              <MappingFragment StoreEntitySet="Services_Preferences_Types">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services_Prices">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Services_Prices">
+              <MappingFragment StoreEntitySet="Services_Prices">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="date_stop" ColumnName="date_stop" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="date_create" ColumnName="date_create" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="preferenceId" ColumnName="preferenceId" />
+                <ScalarProperty Name="tarifId" ColumnName="tarifId" />
+                <ScalarProperty Name="priceTypesId" ColumnName="priceTypesId" />
+                <ScalarProperty Name="serviceId" ColumnName="serviceId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatisticLeftMenu">
+            <EntityTypeMapping TypeName="u436263_newlkModel.StatisticLeftMenu">
+              <MappingFragment StoreEntitySet="StatisticLeftMenu">
+                <ScalarProperty Name="icon_name" ColumnName="icon_name" />
+                <ScalarProperty Name="action_name" ColumnName="action_name" />
+                <ScalarProperty Name="project_setting_id" ColumnName="project_setting_id" />
+                <ScalarProperty Name="display_order" ColumnName="display_order" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarifs">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Tarifs">
+              <MappingFragment StoreEntitySet="Tarifs">
+                <ScalarProperty Name="date_create" ColumnName="date_create" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarifs_Data">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Tarifs_Data">
+              <MappingFragment StoreEntitySet="Tarifs_Data">
+                <ScalarProperty Name="tarifId" ColumnName="tarifId" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statistic_pbx">
+            <EntityTypeMapping TypeName="u436263_newlkModel.Statistic_pbx">
+              <MappingFragment StoreEntitySet="Statistic_pbx">
+                <ScalarProperty Name="work_completed" ColumnName="work_completed" />
+                <ScalarProperty Name="billsec" ColumnName="billsec" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="is_app" ColumnName="is_app" />
+                <ScalarProperty Name="transfer" ColumnName="transfer" />
+                <ScalarProperty Name="appname" ColumnName="appname" />
+                <ScalarProperty Name="dialstatus" ColumnName="dialstatus" />
+                <ScalarProperty Name="to_account" ColumnName="to_account" />
+                <ScalarProperty Name="from_account" ColumnName="from_account" />
+                <ScalarProperty Name="recordingfile" ColumnName="recordingfile" />
+                <ScalarProperty Name="disposition" ColumnName="disposition" />
+                <ScalarProperty Name="did" ColumnName="did" />
+                <ScalarProperty Name="linkedid" ColumnName="linkedid" />
+                <ScalarProperty Name="dst_num" ColumnName="dst_num" />
+                <ScalarProperty Name="dst_chan" ColumnName="dst_chan" />
+                <ScalarProperty Name="src_num" ColumnName="src_num" />
+                <ScalarProperty Name="src_chan" ColumnName="src_chan" />
+                <ScalarProperty Name="endtime" ColumnName="endtime" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="UNIQUEID" ColumnName="UNIQUEID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusSign">
+            <EntityTypeMapping TypeName="u436263_newlkModel.StatusSign">
+              <MappingFragment StoreEntitySet="StatusSign">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="account_id" ColumnName="account_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="document_templates_id" ColumnName="document_templates_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="u436263_newlkModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

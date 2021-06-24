@@ -1,0 +1,89 @@
+﻿@model BillingAdmin.Models.UsersView.UsersDetailsViewModel
+@{
+    ViewBag.Title = "Удаление - " + Model.UserName;
+}
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="no-margin no-padding">Вы уверены, что хотите удалить пользователя?</h3>
+        </div>
+        <div class="col-md-4 text-right">
+            @Html.ActionLink("Отмена", "Details", new { Model.Id }, new { @class = "btn btn-orange-tta" })
+            @Html.ActionLink("В список пользователей", "Index", new { }, new { @class = "btn btn-grey-tta" })
+        </div>
+    </div>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Id)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Id)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.UserName)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.UserName)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <label>@Html.DisplayNameFor(model => model.Email)</label>
+            </div>
+            <div class="col-md-9 text-left">
+                @Html.DisplayFor(model => model.Email)
+            </div>
+        </div>
+    </div>
+    <hr />
+    <label>Список клиентов к которым прикреплен пользователь @Model.UserName</label>
+    <table class="table">
+        <tr>
+            <th>Сокращенное название</th>
+            <th>Полное название</th>
+            <th>ИНН</th>
+            <th>КПП</th>
+            <th>Директор (ФИО)</th>
+            <th>Контактное лицо</th>
+            <th>Email адрес</th>
+            <th>Телефон</th>
+        </tr>
+        @foreach (var account in Model.Accounts)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => account.ShortLegalName)</td>
+                <td>@Html.DisplayFor(modelItem => account.FullLegalName)</td>
+                <td>@Html.DisplayFor(modelItem => account.INN)</td>
+                <td>@Html.DisplayFor(modelItem => account.KPP)</td>
+                <td>@Html.DisplayFor(modelItem => account.DirectorFullName)</td>
+                <td>@Html.DisplayFor(modelItem => account.ContactName)</td>
+                <td>@Html.DisplayFor(modelItem => account.Email)</td>
+                <td>@Html.DisplayFor(modelItem => account.Phone)</td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="line"></div>
+<div class="white-block">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-actions no-color">
+                    <input type="submit" value="Подтвердить удаление" class="btn btn-grey-tta" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

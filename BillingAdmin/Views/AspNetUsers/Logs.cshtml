@@ -1,0 +1,377 @@
+﻿@model IEnumerable<BillingAdmin.Models.Logs>
+@using BillingAdmin.Models
+@{
+    ViewBag.Title = "Рассылки";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Entities db = new Entities();
+    Dictionary<long, int> counts = ViewBag.counts;
+}
+
+<section class="services add-pad" style="min-height: 65%;">
+    <div class="container margin-top">
+        <h2>Рассылки</h2>
+        <div class="table-responsive">
+            <table id="ResultTable" class="table table-striped first-child-center">
+                <thead>
+                    <tr>
+                        @*<th></th>*@
+                        <th class="text-center">
+                            №
+                        </th>
+                        <th class="text-center">
+                            Тип рассылки
+                        </th>
+                        <th class="text-center">
+                            E-mail аккаунта
+                        </th>
+                        <th class="text-center">
+                            Дата
+                        </th>
+                        <th class="text-center">
+                            Сообщение
+                        </th>
+                        <th class="text-center">
+                            Объект
+                        </th>
+                        @*<th class="text-center">Кол-во позиций</th>
+                            <th class="text-center">Кол-во пользователей</th>
+                            <th class="text-center"></th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td></td>
+                            @*<td>
+                                    <a href="@Url.Action("CheckProducts","C100tx_Orders", new { id = item.Id })">
+                                        @Html.DisplayFor(modelItem => item.id)
+                                    </a>
+                                </td>*@
+                            <td style="width:600px;max-width:600px;white-space: unset !important;" class="wordwrap">
+                                @Html.DisplayFor(modelItem => item.Logs_Types.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Accounts.Email)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.date)
+                                @*@(counts.Keys.Contains(item.id) ? counts[item.id] : 0)*@
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.content)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.json)
+                            </td>
+
+                            @*<td style="text-align:center">
+                                    @item.Accounts_Users.Count()
+                                </td>*@
+                            @*<td>
+                                    @if (!User.IsInRole("Operator"))
+                                    {
+                                        @Html.ActionLink("Каталог ", "Catalog", new { id = item.Id })
+
+                                        @Html.ActionLink("Загрузка прайса ", "LoadPrice", new { id = item.Id })
+
+                                        @Html.ActionLink("Редактирование", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Просмотр", "Details", new { id = item.Id })
+                                        <a data-title="" data-whatever="@item.Id" data-toggle="modal" data-target="#exampleModal">
+                                            <i class="fa fa-key" style="font-size: 18px;margin: 5px;"></i>
+                                        </a>
+
+                                    }
+
+                                    <a href="@Url.Action("Edit","Accounts", new { id = item.Id })">
+                                        <i class="fa fa-edit" style="font-size: 18px;margin: 5px;"></i>
+                                    </a>
+                                    <a href="@Url.Action("Details","Accounts", new { id = item.Id })">
+                                        <i class="fa fa-eye" style="font-size: 18px;margin: 5px;"></i>
+                                    </a>
+                                </td>*@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*  @using (Html.BeginForm("SaveChangedProduct", "C100tx_Orders", FormMethod.Post))*@
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="modal-header">
+                <br />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                <h5 class="modal-title" id="exampleModalLabel">Изменить или создать пароль для входа</h5>
+            </div>
+            <div class="">
+                <table id="modal" class="table-striped table-bordered " style="width: 100%;"></table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" id="changeItemBtn" class="btn btn-primary">Обновить пароль</button>
+            </div>
+            @*}*@
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet" />
+
+
+    <script>
+        function gettoken() {
+            var token = '@Html.AntiForgeryToken()';
+            token = $(token).val();
+            return token;
+        };
+
+        var idsAccounts;
+
+        $(document).ready(function () {
+            $('#ResultTable').DataTable(
+                {
+                    "columnDefs": [
+                        {
+                            render: function (data, type, full, meta) {
+                                return "<div class='text-wrap width-200'>" + data + "</div>";
+                            },
+                            targets: 1
+                        },
+                        {
+                            'orderable': false,
+                            className: 'select-checkbox',
+                            targets: 0,
+                            'checkboxes': {
+                                'selectRow': true
+                            }
+                        }
+                        //,
+                        //{
+                        //    render: function (data, type, full, meta) {
+                        //        return "<div class='text-wrap width-200'>" + data + "</div>";
+                        //    },
+                        //    targets: 2
+                        //}
+                    ],
+                    select: {
+                        style: 'multi',
+                        //selector: 'td:first-child'
+                    },
+                    "fixedHeader": true,
+                    "language": {
+                        "decimal": "",
+                        "emptyTable": "Нет данных",
+                        "info": "Показано c _START_ по _END_ из _TOTAL_",
+                        "infoEmpty": "Показано c 0 по 0 из 0",
+                        "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "_MENU_",
+                        "loadingRecords": "Загрузка...",
+                        "processing": "В процессе...",
+                        "search": "",
+                        "searchPlaceholder": "Поиск в таблице",
+                        "zeroRecords": "Совпадений не найдено",
+                        "paginate": {
+                            "first": "Первая",
+                            "last": "Последняя",
+                            "next": "Следующая",
+                            "previous": "Предыдущая"
+                        },
+                        "aria": {
+                            "sortAscending": ": сортировка по возрастанию",
+                            "sortDescending": ": сортировка по убыванию"
+                        }
+                    },
+
+                    buttons: [
+                        { extend: 'copy', text: '<i class="fa fa-copy" title="Копировать"></>' },
+                        { extend: 'csv', text: '<i class="fa fa-align-justify" title="Экспорт CSV"></>' },
+                        { extend: 'excel', text: '<i class="fa fa-table" title="Экспорт Excel"></>' },
+                        { extend: 'selectAll', text: '<i class="fa fa-check-square" title="Выделить все"></>' },
+                        { extend: 'selectNone', text:'<i class="fa fa-minus-square" title="Снять выделение"></>' },
+                        {
+                            text: '<i class="fa fa-envelope" title="Отправить приглашения"></>',
+                            action: function ( e, dt, node, config ) {
+                                //dt.ajax.reload();
+                               // var idsAccounts = dt.rows({ selected: true }).data().pluck(1);
+                               // console.log("===" + idsAccounts);
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: '@Url.Action("SendLetters", "Accounts")',
+                                    data: {
+                                        idsAccounts: $.makeArray(idsAccounts),
+                                        __RequestVerificationToken: gettoken()
+
+                                    },
+                                    success: function (result) {
+                                        //document.location.reload(true);
+                                        console.log(result);
+                                        alert(result);
+                                    }
+                                    //,error: errorFunc
+                                });
+
+                            }
+                        },
+
+                        {
+                            text: '<i class="fa fa-address-card" title="Отправить пароли"></>',
+                            action: function ( e, dt, node, config ) {
+                                //dt.ajax.reload();
+                               // var idsAccounts = dt.rows({ selected: true }).data().pluck(1);
+                               // console.log("===" + idsAccounts);
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: '@Url.Action("SendPasswords", "Accounts")',
+                                    data: {
+                                        idsAccounts: $.makeArray(idsAccounts),
+                                        __RequestVerificationToken: gettoken()
+
+                                    },
+                                    success: function (result) {
+                                        //document.location.reload(true);
+                                        console.log(result);
+                                        alert(result);
+                                    }
+                                    //,error: errorFunc
+                                });
+
+                            }
+                        }
+                    ],
+
+                    // dom: 'Bfrtip',
+                    dom: '<"row panel no-back" <"col-xs-12 col-lg-3 col-md-4" l><"col-xs-12 col-lg-6 col-md-4" <"#InsertButtons">><"col-xs-12 col-lg-3 col-md-4" f>>t' +
+                        '<"row"<"col-xs-12 col-md-3"i><"col-xs-12 col-md-9"p>>',
+                    pageLength: 30,
+                    lengthMenu: [[25, 50, 100, -1], ["Показывать по 25", "Показывать по 50", "Показывать по 100", "Показывать все"]]
+                }
+            );
+
+            var table = $('#ResultTable').DataTable();
+            table.buttons().container().appendTo($('#InsertButtons'));
+            $('.dataTables_filter input[type = "search"]').addClass('cv no-border');
+            $('.dataTables_length select').addClass('selectpicker no-back');
+            $('.dataTables_length select').selectpicker('refresh');
+
+            table.on('select', function (e, dt, type, indexes) {
+                if (type === 'row') {
+                    var data = table.rows(indexes).data().pluck('id');
+
+                    // do something with the ID of the selected items
+                    console.log("row selected row index: " + indexes);
+                    //console.log(table.rows(indexes).data().pluck(1));
+
+                    var count = table.rows( { selected: true } ).count();
+                    console.log('<div>' + count + ' row(s) selected</div>');
+                    console.log(table.rows({ selected: true }).data().pluck(1));
+
+                    idsAccounts = table.rows({ selected: true }).data().pluck(1);
+                }
+            });
+
+            table.on( 'deselect', function ( e, dt, type, indexes ) {
+                if ( type === 'row' ) {
+                    var data = table.rows( indexes ).data().pluck( 'id' );
+
+                    // do something with the ID of the deselected items
+                    console.log("row deselected row index: " + indexes);
+                   // console.log(table.rows(indexes).data().pluck(1));
+
+                    var count = table.rows( { selected: true } ).count();
+                    console.log('<div>' + count + ' row(s) selected</div>');
+                    console.log(table.rows({ selected: true }).data().pluck(1));
+
+                    idsAccounts = table.rows({ selected: true }).data().pluck(1);
+
+                }
+            } );
+
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);// Button that triggered the modal
+                accountId = button.data('whatever'); // Extract info from data-* attributes
+                console.log('accountId=' + accountId);
+                //rowFired = button.closest(".divTableRow");
+                $('#changeItemBtn').attr("disabled", false);
+                //// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                //// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                //modal.find('.modal-title').text('New message to ' + recipient)
+                //modal.find('.modal-body input').val(recipient)
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SetNewPassword", "Accounts")',
+                    data: {
+                        accountId: accountId,
+                        __RequestVerificationToken: gettoken()
+
+                    },
+                    success: function (result) {
+                        //document.location.reload(true);
+                       // console.log(result);
+                        modal.find('#modal').html(result);
+
+                        $(".checkbox").click(function () {
+                            $('#exampleModal').find("[name='changedItem']").attr('value', $(this).val());
+                            $('#exampleModal').find("[name='changedItem']").val($(this).val());
+                            console.log($(this).val());
+                            // $(".checkbox").removeAttr('checked');
+                            // $(this).attr('checked', 'checked');
+                        });
+                    }
+                    //,error: errorFunc
+                });
+
+            });
+
+            $('#changeItemBtn').click(function () {
+                console.log('changeItemBtn');
+                var button = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GeneratePasswordForUser", "Accounts")',
+                    data: {
+                        accountId:  $('#exampleModal').find("[name='accountId']").val(),
+                        __RequestVerificationToken: gettoken(),
+                        changedItem: $('#exampleModal').find("[name='changedItem']").val()
+                    },
+                    success: function (result) {
+                        //document.location.reload(true);
+                        //console.log(rowFired);
+                        $('#exampleModal').find('#modal').html(result);
+                        button.attr("disabled", true);
+                        //rowFired.replaceWith(result);
+                    }
+                    //,error: errorFunc
+                });
+                //$('#exampleModal').modal('hide');
+            });
+
+
+        });
+    </script>
+
+    <style>
+        #ResultTable_filter {
+            max-width: 450px;
+        }
+    </style>
+}
